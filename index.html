@@ -195,6 +195,74 @@
     .reveal { animation: none; } .strip .track { animation: none; } html { scroll-behavior: auto; }
     .piece:hover .photo img, .feed .tiles a:hover img { transform: none; }
   }
+
+  /* Collection cards (rendered by script) */
+  .piece { cursor: pointer; }
+  .piece:focus-visible { outline: 2px solid var(--fg); outline-offset: 6px; }
+  .piece .hint { grid-column: 1 / -1; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted); display: inline-flex; align-items: center; gap: 8px; }
+  .piece .hint::after { content: "→"; transition: transform 220ms; }
+  .piece:hover .hint::after { transform: translateX(4px); }
+  .piece .hint b { font-weight: 400; color: var(--fg); }
+  .archive-tile { display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; border: 1px solid var(--line); background: transparent; }
+  .archive-title { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; }
+  .archive-sub { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-muted); margin-top: 14px; }
+  .piece.archive { justify-content: center; }
+
+  /* Lightbox */
+  [hidden] { display: none !important; }
+  body.lb-open { overflow: hidden; }
+  .lightbox { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 0; }
+  .lb-backdrop { position: absolute; inset: 0; background: color-mix(in srgb, var(--fg) 82%, transparent); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .lb-panel {
+    position: relative; background: var(--bg); color: var(--fg);
+    width: min(1180px, 100%); max-height: 100%; height: 100%;
+    display: grid; grid-template-columns: minmax(0, 7fr) minmax(300px, 4fr); grid-template-rows: 100%;
+    overflow: hidden; animation: lb-in 260ms cubic-bezier(.2,.7,.2,1) both;
+  }
+  @media (min-width: 900px) { .lightbox { padding: 24px; } .lb-panel { height: min(880px, 100%); } }
+  @keyframes lb-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .lb-close { position: absolute; top: 12px; right: 12px; z-index: 3; width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background-color 200ms, color 200ms; }
+  .lb-close:hover { background: var(--fg); color: var(--bg); }
+  .lb-close svg { width: 18px; height: 18px; }
+  .lb-media { min-width: 0; min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; background: var(--bg-2); }
+  .lb-stage { position: relative; min-height: 0; display: flex; align-items: center; justify-content: center; touch-action: pan-y; }
+  .lb-stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; user-select: none; -webkit-user-drag: none; }
+  .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background-color 200ms, color 200ms, opacity 200ms; }
+  .lb-nav:hover { background: var(--fg); color: var(--bg); }
+  .lb-nav svg { width: 18px; height: 18px; }
+  .lb-nav.prev { left: 12px; } .lb-nav.next { right: 12px; }
+  .lb-nav[disabled] { opacity: 0.35; cursor: default; }
+  .lb-count { position: absolute; left: 14px; bottom: 12px; font-size: 0.62rem; letter-spacing: 0.22em; background: var(--bg); padding: 5px 9px; font-variant-numeric: tabular-nums; }
+  .lb-thumbs { display: flex; gap: 6px; padding: 10px; overflow-x: auto; border-top: 1px solid var(--line); scrollbar-width: none; }
+  .lb-thumbs::-webkit-scrollbar { display: none; }
+  .lb-thumbs button { flex: 0 0 auto; width: 54px; aspect-ratio: 3 / 4; padding: 0; border: 1px solid transparent; background: none; cursor: pointer; opacity: 0.55; transition: opacity 200ms, border-color 200ms; }
+  .lb-thumbs button img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lb-thumbs button[aria-current="true"] { opacity: 1; border-color: var(--fg); }
+  .lb-thumbs button:hover { opacity: 1; }
+  .lb-info { min-width: 0; overflow-y: auto; padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; gap: 14px; border-left: 1px solid var(--line); }
+  .lb-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-top: 1px solid var(--line-strong); padding-top: 14px; }
+  .lb-head .code { font-family: var(--font-display); font-size: 2.2rem; line-height: 1; }
+  .lb-head .price { font-variant-numeric: tabular-nums; font-size: 0.95rem; white-space: nowrap; }
+  .lb-head .price.out { color: var(--fg-muted); text-decoration: line-through; }
+  .lb-name { font-family: var(--font-display); font-size: 1.3rem; font-style: italic; margin-top: -6px; }
+  .lb-name:empty { display: none; }
+  .lb-desc { color: var(--fg-muted); font-size: 0.95rem; }
+  .lb-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+  .lb-actions .btn { width: 100%; }
+  .lb-ig { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: var(--fg-muted); border-bottom: 1px solid var(--line); padding-bottom: 2px; align-self: flex-start; transition: color 200ms, border-color 200ms; }
+  .lb-ig:hover { color: var(--fg); border-color: var(--fg); }
+  .lb-note { font-size: 0.8rem; color: var(--fg-muted); margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); }
+  .lb-soldout { display: inline-block; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; border: 1px solid var(--fg); padding: 5px 9px; align-self: flex-start; }
+  .lb-soldout:empty { display: none; }
+  @media (max-width: 899px) {
+    .lb-panel { display: block; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .lb-media { display: block; min-height: auto; }
+    .lb-stage { height: min(68vh, 560px); }
+    .lb-thumbs { display: flex; }
+    .lb-info { border-left: 0; border-top: 1px solid var(--line); overflow: visible; }
+    .lb-note { margin-top: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .lb-panel { animation: none; } }
 </style>
 </head>
 <body>
@@ -252,120 +320,62 @@
           <p class="eyebrow">The collection</p>
           <h2>Find your code.</h2>
         </div>
-        <p class="note">Each abaya is posted on Instagram with its code and price. Tap a piece to open its post, or send us the code on WhatsApp.</p>
+        <p class="note">Every abaya has a code. Tap a piece to see all of its photos, then order it with one message.</p>
       </div>
 
       <p class="group-label">Latest drop · June 2026</p>
-      <div class="grid">
-        <a class="piece" href="https://www.instagram.com/bymash.qatar/p/DZDLqr0jlgG/" target="_blank" rel="noopener">
-          <div class="photo">
-            <img src="images/M047-a.jpg" alt="M047 Sakura Noir: black abaya with cherry blossom embroidery" loading="lazy" width="1051" height="1400">
-            <img class="alt" src="images/M047-b.jpg" alt="" loading="lazy" width="1051" height="1400">
-            <span class="badge">Sold out</span>
-          </div>
-          <div class="meta">
-            <span class="code">M047<small>Sakura Noir</small></span>
-            <span class="price out">1,500 QR</span>
-            <p class="desc">Black abaya with hand-finished cherry blossom embroidery and lace at the cuffs. The piece that named the drop.</p>
-          </div>
-        </a>
-        <div class="piece">
-          <a class="photo" href="https://www.instagram.com/bymash.qatar/p/DZDLSxYDmnv/" target="_blank" rel="noopener" aria-label="Open M046 on Instagram">
-            <img src="images/M046-a.jpg" alt="M046: structured black abaya with an embellished high collar panel" loading="lazy" width="1121" height="1400">
-            <img class="alt" src="images/M046-b.jpg" alt="" loading="lazy" width="1121" height="1400">
-          </a>
-          <div class="meta">
-            <span class="code">M046</span>
-            <span class="price">1,400 QR</span>
-            <p class="desc">Structured satin-finish abaya with an embellished high-neck panel and welt pockets.</p>
-            <span class="cta"><a href="https://wa.me/97451696699?text=Hi%20Mash%2C%20I%27d%20like%20to%20order%20M046" target="_blank" rel="noopener">Order M046</a><a href="https://www.instagram.com/bymash.qatar/p/DZDLSxYDmnv/" target="_blank" rel="noopener">See post</a></span>
-          </div>
-        </div>
-        <div class="piece">
-          <a class="photo" href="https://www.instagram.com/bymash.qatar/p/DZDKl4EjuVb/" target="_blank" rel="noopener" aria-label="Open M045 on Instagram">
-            <img src="images/M045-a.jpg" alt="M045: open black abaya in a wave-textured jacquard with lace-edged sleeves" loading="lazy" width="1050" height="1400">
-            <img class="alt" src="images/M045-b.jpg" alt="" loading="lazy" width="1051" height="1400">
-          </a>
-          <div class="meta">
-            <span class="code">M045</span>
-            <span class="price">1,300 QR</span>
-            <p class="desc">Open abaya in a wave-textured jacquard, finished with lace along the sleeve.</p>
-            <span class="cta"><a href="https://wa.me/97451696699?text=Hi%20Mash%2C%20I%27d%20like%20to%20order%20M045" target="_blank" rel="noopener">Order M045</a><a href="https://www.instagram.com/bymash.qatar/p/DZDKl4EjuVb/" target="_blank" rel="noopener">See post</a></span>
-          </div>
-        </div>
-        <div class="piece">
-          <a class="photo" href="https://www.instagram.com/bymash.qatar/p/DZDKOaCDn-_/" target="_blank" rel="noopener" aria-label="Open M044 on Instagram">
-            <img src="images/M044-a.jpg" alt="M044: tailored coat-style abaya in a tonal floral jacquard with a single clasp" loading="lazy" width="1051" height="1400">
-            <img class="alt" src="images/M044-b.jpg" alt="" loading="lazy" width="1051" height="1400">
-          </a>
-          <div class="meta">
-            <span class="code">M044</span>
-            <span class="price">1,300 QR</span>
-            <p class="desc">Tailored coat-style abaya in a tonal floral jacquard, with a peak lapel and a single metal clasp.</p>
-            <span class="cta"><a href="https://wa.me/97451696699?text=Hi%20Mash%2C%20I%27d%20like%20to%20order%20M044" target="_blank" rel="noopener">Order M044</a><a href="https://www.instagram.com/bymash.qatar/p/DZDKOaCDn-_/" target="_blank" rel="noopener">See post</a></span>
-          </div>
-        </div>
-        <div class="piece">
-          <a class="photo" href="https://www.instagram.com/bymash.qatar/p/DZDJqOxjsZW/" target="_blank" rel="noopener" aria-label="Open M043 on Instagram">
-            <img src="images/M043-a.jpg" alt="M043: midnight navy abaya with beaded tassel closures" loading="lazy" width="1050" height="1400">
-            <img class="alt" src="images/M043-b.jpg" alt="" loading="lazy" width="1050" height="1400">
-          </a>
-          <div class="meta">
-            <span class="code">M043</span>
-            <span class="price">1,200 QR</span>
-            <p class="desc">Midnight navy abaya with beaded tassel closures and a fringe of sequins toward the hem.</p>
-            <span class="cta"><a href="https://wa.me/97451696699?text=Hi%20Mash%2C%20I%27d%20like%20to%20order%20M043" target="_blank" rel="noopener">Order M043</a><a href="https://www.instagram.com/bymash.qatar/p/DZDJqOxjsZW/" target="_blank" rel="noopener">See post</a></span>
-          </div>
-        </div>
-        <div class="piece">
-          <a class="photo" href="https://www.instagram.com/bymash.qatar/p/DZDJIjqjluG/" target="_blank" rel="noopener" aria-label="Open M042 on Instagram">
-            <img src="images/M042-a.jpg" alt="M042: black textured abaya with beaded tassel closures" loading="lazy" width="1120" height="1400">
-            <img class="alt" src="images/M042-b.jpg" alt="" loading="lazy" width="1120" height="1400">
-          </a>
-          <div class="meta">
-            <span class="code">M042</span>
-            <span class="price">1,200 QR</span>
-            <p class="desc">Black textured abaya with beaded tassel closures at the chest and a subtle shimmer through the hem.</p>
-            <span class="cta"><a href="https://wa.me/97451696699?text=Hi%20Mash%2C%20I%27d%20like%20to%20order%20M042" target="_blank" rel="noopener">Order M042</a><a href="https://www.instagram.com/bymash.qatar/p/DZDJIjqjluG/" target="_blank" rel="noopener">See post</a></span>
-          </div>
-        </div>
-      </div>
+      <div class="grid" id="grid-latest"></div>
 
       <p class="group-label">Earlier pieces</p>
-      <div class="grid">
-        <div class="piece">
-          <a class="photo" href="https://www.instagram.com/bymash.qatar/p/DWZCvbiDL7h/" target="_blank" rel="noopener" aria-label="Open M041 on Instagram">
-            <img src="images/M041-a.jpg" alt="M041: black abaya with a wide white embroidered lace band" loading="lazy" width="1050" height="1400">
-          </a>
-          <div class="meta">
-            <span class="code">M041</span>
-            <span class="price">1,100 QR</span>
-            <p class="desc">Black abaya with a broad band of white embroidered lace across the body.</p>
-            <span class="cta"><a href="https://wa.me/97451696699?text=Hi%20Mash%2C%20I%27d%20like%20to%20order%20M041" target="_blank" rel="noopener">Order M041</a><a href="https://www.instagram.com/bymash.qatar/p/DWZCvbiDL7h/" target="_blank" rel="noopener">See post</a></span>
-          </div>
-        </div>
-        <div class="piece">
-          <a class="photo" href="https://www.instagram.com/bymash.qatar/p/DUyXLKQDk3s/" target="_blank" rel="noopener" aria-label="Open M039 on Instagram">
-            <img src="images/M039-a.jpg" alt="M039: pale grey cape-style abaya with lace panels" loading="lazy" width="1400" height="1400">
-          </a>
-          <div class="meta">
-            <span class="code">M039</span>
-            <span class="price">Price on request</span>
-            <p class="desc">Pale grey cape-style abaya with lace panels. “When lace flows, the story begins.”</p>
-            <span class="cta"><a href="https://wa.me/97451696699?text=Hi%20Mash%2C%20I%27d%20like%20to%20ask%20about%20M039" target="_blank" rel="noopener">Ask about M039</a><a href="https://www.instagram.com/bymash.qatar/p/DUyXLKQDk3s/" target="_blank" rel="noopener">See post</a></span>
-          </div>
-        </div>
-        <a class="piece" href="https://www.instagram.com/bymash.qatar/" target="_blank" rel="noopener" style="justify-content:center">
-          <div class="photo" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;border:1px solid var(--line);background:transparent">
+      <div class="grid" id="grid-earlier">
+        <a class="piece archive" href="https://www.instagram.com/bymash.qatar/" target="_blank" rel="noopener">
+          <div class="photo archive-tile">
             <div>
-              <div style="font-family:var(--font-display);font-size:1.5rem;line-height:1.2">Codes M001 to M041</div>
-              <div style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--fg-muted);margin-top:14px">Browse the full archive on Instagram →</div>
+              <div class="archive-title">Codes M001 to M041</div>
+              <div class="archive-sub">Browse the full archive on Instagram →</div>
             </div>
           </div>
         </a>
       </div>
     </div>
   </section>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="lb-code">
+    <div class="lb-backdrop" data-close></div>
+    <div class="lb-panel">
+      <button type="button" class="lb-close" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="lb-media">
+        <div class="lb-stage" id="lb-stage">
+          <img id="lb-img" alt="">
+          <button type="button" class="lb-nav prev" id="lb-prev" aria-label="Previous photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button type="button" class="lb-nav next" id="lb-next" aria-label="Next photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <span class="lb-count" id="lb-count">1 / 6</span>
+        </div>
+        <div class="lb-thumbs" id="lb-thumbs" aria-label="Photos"></div>
+      </div>
+      <div class="lb-info">
+        <p class="eyebrow">Abaya</p>
+        <div class="lb-head">
+          <span class="code" id="lb-code">M047</span>
+          <span class="price" id="lb-price">1,500 QR</span>
+        </div>
+        <p class="lb-name" id="lb-name">Sakura Noir</p>
+        <span class="lb-soldout" id="lb-sold"></span>
+        <p class="lb-desc" id="lb-desc"></p>
+        <div class="lb-actions">
+          <a class="btn solid" id="lb-order" href="#" target="_blank" rel="noopener">Order this abaya</a>
+          <a class="lb-ig" id="lb-ig" href="#" target="_blank" rel="noopener">View on Instagram</a>
+        </div>
+        <p class="lb-note">Orders are confirmed on WhatsApp. Send your height or usual abaya length with the code and we will confirm fit, price and delivery.</p>
+      </div>
+    </div>
+  </div>
 
   <section id="details" class="details">
     <div class="wrap">
@@ -492,6 +502,146 @@
         } else { fallback(); }
       });
     });
+  })();
+
+  (function () {
+    var WA = 'https://wa.me/97451696699';
+    var PRODUCTS = [
+      { code: 'M047', name: 'Sakura Noir', price: '1,500 QR', soldOut: true, photos: 6, group: 'latest',
+        post: 'https://www.instagram.com/bymash.qatar/p/DZDLqr0jlgG/',
+        desc: 'Black abaya with hand-finished cherry blossom embroidery and lace at the cuffs. The piece that named the drop.' },
+      { code: 'M046', name: '', price: '1,400 QR', photos: 6, group: 'latest',
+        post: 'https://www.instagram.com/bymash.qatar/p/DZDLSxYDmnv/',
+        desc: 'Structured satin-finish abaya with an embellished high-neck panel and welt pockets.' },
+      { code: 'M045', name: '', price: '1,300 QR', photos: 6, group: 'latest',
+        post: 'https://www.instagram.com/bymash.qatar/p/DZDKl4EjuVb/',
+        desc: 'Open abaya in a wave-textured jacquard, finished with lace along the sleeve.' },
+      { code: 'M044', name: '', price: '1,300 QR', photos: 7, group: 'latest',
+        post: 'https://www.instagram.com/bymash.qatar/p/DZDKOaCDn-_/',
+        desc: 'Tailored coat-style abaya in a tonal floral jacquard, with a peak lapel and a single metal clasp.' },
+      { code: 'M043', name: '', price: '1,200 QR', photos: 7, group: 'latest',
+        post: 'https://www.instagram.com/bymash.qatar/p/DZDJqOxjsZW/',
+        desc: 'Midnight navy abaya with beaded tassel closures and a fringe of sequins toward the hem.' },
+      { code: 'M042', name: '', price: '1,200 QR', photos: 7, group: 'latest',
+        post: 'https://www.instagram.com/bymash.qatar/p/DZDJIjqjluG/',
+        desc: 'Black textured abaya with beaded tassel closures at the chest and a subtle shimmer through the hem.' },
+      { code: 'M041', name: '', price: '1,100 QR', photos: 1, group: 'earlier',
+        post: 'https://www.instagram.com/bymash.qatar/p/DWZCvbiDL7h/',
+        desc: 'Black abaya with a broad band of white embroidered lace across the body.' },
+      { code: 'M039', name: '', price: 'Price on request', photos: 1, group: 'earlier',
+        post: 'https://www.instagram.com/bymash.qatar/p/DUyXLKQDk3s/',
+        desc: 'Pale grey cape-style abaya with lace panels. “When lace flows, the story begins.”' }
+    ];
+    var byCode = {};
+    PRODUCTS.forEach(function (p) { byCode[p.code] = p; });
+
+    function img(code, n) { return 'images/' + code + '-' + n + '.jpg'; }
+    function orderLink(p) {
+      var msg = p.soldOut ? 'Hi Mash, is ' + p.code + ' coming back? I would like to order it.'
+              : 'Hi Mash, I would like to order ' + p.code + '.';
+      return WA + '?text=' + encodeURIComponent(msg);
+    }
+
+    // Render cards
+    function card(p) {
+      var el = document.createElement('article');
+      el.className = 'piece'; el.tabIndex = 0; el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'View photos of ' + p.code + (p.name ? ' ' + p.name : ''));
+      el.dataset.code = p.code;
+      var hover = p.photos > 1 ? '<img class="alt" src="' + img(p.code, 2) + '" alt="" loading="lazy">' : '';
+      el.innerHTML =
+        '<div class="photo">' +
+          '<img src="' + img(p.code, 1) + '" alt="' + p.code + (p.name ? ' ' + p.name : '') + '" loading="lazy">' + hover +
+          (p.soldOut ? '<span class="badge">Sold out</span>' : '') +
+        '</div>' +
+        '<div class="meta">' +
+          '<span class="code">' + p.code + (p.name ? '<small>' + p.name + '</small>' : '') + '</span>' +
+          '<span class="price' + (p.soldOut ? ' out' : '') + '">' + p.price + '</span>' +
+          '<p class="desc">' + p.desc + '</p>' +
+          '<span class="hint">View <b>' + p.photos + (p.photos === 1 ? ' photo' : ' photos') + '</b> and order</span>' +
+        '</div>';
+      el.addEventListener('click', function () { open(p.code, 0); });
+      el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(p.code, 0); } });
+      return el;
+    }
+    var latest = document.getElementById('grid-latest'), earlier = document.getElementById('grid-earlier');
+    PRODUCTS.forEach(function (p) {
+      if (p.group === 'latest') latest.appendChild(card(p));
+      else earlier.insertBefore(card(p), earlier.lastElementChild);
+    });
+
+    // Lightbox
+    var lb = document.getElementById('lightbox');
+    var stage = document.getElementById('lb-stage'), im = document.getElementById('lb-img');
+    var prev = document.getElementById('lb-prev'), next = document.getElementById('lb-next');
+    var count = document.getElementById('lb-count'), thumbs = document.getElementById('lb-thumbs');
+    var codeEl = document.getElementById('lb-code'), priceEl = document.getElementById('lb-price');
+    var nameEl = document.getElementById('lb-name'), descEl = document.getElementById('lb-desc');
+    var orderEl = document.getElementById('lb-order'), igEl = document.getElementById('lb-ig');
+    var current = null, index = 0, lastFocus = null;
+
+    function show(i) {
+      var p = current; if (!p) return;
+      index = (i + p.photos) % p.photos;
+      im.src = img(p.code, index + 1);
+      im.alt = p.code + (p.name ? ' ' + p.name : '') + ', photo ' + (index + 1) + ' of ' + p.photos;
+      count.textContent = (index + 1) + ' / ' + p.photos;
+      var single = p.photos < 2;
+      prev.hidden = single; next.hidden = single; count.hidden = single;
+      Array.prototype.forEach.call(thumbs.children, function (b, k) {
+        b.setAttribute('aria-current', k === index ? 'true' : 'false');
+        if (k === index && b.scrollIntoView) b.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      });
+      // preload neighbours
+      if (!single) { [index + 1, index - 1].forEach(function (k) { var pre = new Image(); pre.src = img(p.code, ((k + p.photos) % p.photos) + 1); }); }
+    }
+    function open(code, i) {
+      var p = byCode[code]; if (!p) return;
+      current = p; lastFocus = document.activeElement;
+      codeEl.textContent = p.code;
+      priceEl.textContent = p.price; priceEl.className = 'price' + (p.soldOut ? ' out' : '');
+      nameEl.textContent = p.name || '';
+      document.getElementById('lb-sold').textContent = p.soldOut ? 'Sold out' : '';
+      descEl.textContent = p.desc;
+      orderEl.href = orderLink(p);
+      orderEl.textContent = p.soldOut ? 'Ask about the next drop' : 'Order this abaya';
+      igEl.href = p.post;
+      thumbs.innerHTML = '';
+      thumbs.hidden = p.photos < 2;
+      for (var k = 1; k <= p.photos; k++) {
+        var b = document.createElement('button'); b.type = 'button';
+        b.setAttribute('aria-label', 'Photo ' + k);
+        b.innerHTML = '<img src="' + img(p.code, k) + '" alt="" loading="lazy">';
+        (function (k) { b.addEventListener('click', function () { show(k - 1); }); })(k);
+        thumbs.appendChild(b);
+      }
+      show(i || 0);
+      lb.hidden = false; document.body.classList.add('lb-open');
+      document.querySelector('.lb-close').focus();
+    }
+    function close() {
+      lb.hidden = true; document.body.classList.remove('lb-open'); current = null;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    lb.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
+    prev.addEventListener('click', function () { show(index - 1); });
+    next.addEventListener('click', function () { show(index + 1); });
+    document.addEventListener('keydown', function (e) {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') show(index + 1);
+      else if (e.key === 'ArrowLeft') show(index - 1);
+    });
+    // swipe
+    var sx = null, sy = null;
+    stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(dx < 0 ? index + 1 : index - 1);
+    }, { passive: true });
+    // tap the big photo to advance
+    im.addEventListener('click', function () { if (current && current.photos > 1) show(index + 1); });
   })();
 </script>
 
