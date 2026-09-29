@@ -263,6 +263,48 @@
     .lb-note { margin-top: 6px; }
   }
   @media (prefers-reduced-motion: reduce) { .lb-panel { animation: none; } }
+
+  /* Cart */
+  .cart-btn { position: relative; }
+  .cart-count { position: absolute; top: -6px; right: -6px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--fg); color: var(--bg); font-size: 0.6rem; font-weight: 500; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; }
+  .icon-link:hover .cart-count { background: var(--bg); color: var(--fg); }
+  .piece .row { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .piece .add { font: inherit; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 14px; border: 1px solid var(--fg); background: transparent; color: var(--fg); cursor: pointer; white-space: nowrap; transition: background-color 200ms, color 200ms; }
+  .piece .add:hover { background: var(--fg); color: var(--bg); }
+  .piece .add[disabled] { border-color: var(--line); color: var(--fg-muted); cursor: default; background: transparent; }
+  .piece .add.added { background: var(--fg); color: var(--bg); }
+  .lb-viewcart { font: inherit; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; background: none; border: 0; padding: 0; color: var(--fg); cursor: pointer; text-align: left; border-bottom: 1px solid var(--fg); align-self: flex-start; }
+  body.cart-open { overflow: hidden; }
+  .cart { position: fixed; inset: 0; z-index: 60; }
+  .cart-backdrop { position: absolute; inset: 0; background: color-mix(in srgb, var(--fg) 55%, transparent); }
+  .cart-panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(440px, 100%); background: var(--bg); color: var(--fg); display: flex; flex-direction: column; border-left: 1px solid var(--line); animation: cart-in 280ms cubic-bezier(.2,.7,.2,1) both; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  @keyframes cart-in { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .cart-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 22px 22px 16px; border-bottom: 1px solid var(--line); }
+  .cart-head h3 { font-size: 1.6rem; margin-top: 8px; }
+  .cart-close { position: static; }
+  .cart-items { flex: 1; overflow-y: auto; padding: 6px 22px; }
+  .cart-item { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .cart-item img { width: 64px; aspect-ratio: 3 / 4; object-fit: cover; }
+  .cart-item .ci-code { font-family: var(--font-display); font-size: 1.3rem; line-height: 1; }
+  .cart-item .ci-code small { font-family: var(--font-body); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-muted); margin-left: 8px; }
+  .cart-item .ci-price { font-size: 0.82rem; color: var(--fg-muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .cart-item .ci-remove { font: inherit; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; background: none; border: 0; padding: 0; color: var(--fg-muted); cursor: pointer; margin-top: 8px; border-bottom: 1px solid transparent; }
+  .cart-item .ci-remove:hover { color: var(--fg); border-color: var(--fg); }
+  .qty { display: inline-flex; align-items: center; border: 1px solid var(--line); }
+  .qty button { font: inherit; width: 30px; height: 30px; background: none; border: 0; color: var(--fg); cursor: pointer; font-size: 1rem; line-height: 1; }
+  .qty button:hover { background: var(--fg); color: var(--bg); }
+  .qty span { min-width: 26px; text-align: center; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+  .cart-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; text-align: center; padding: 24px; color: var(--fg-muted); }
+  .cart-foot { padding: 16px 22px 22px; border-top: 1px solid var(--line-strong); display: grid; gap: 12px; background: var(--bg-2); }
+  .cart-total { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-muted); }
+  .cart-total b { font-family: var(--font-display); font-weight: 400; font-size: 1.7rem; letter-spacing: 0; text-transform: none; color: var(--fg); font-variant-numeric: tabular-nums; }
+  .cart-note { font-size: 0.78rem; color: var(--fg-muted); }
+  .cart-foot .btn { width: 100%; }
+  .cart-preview summary { font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-muted); cursor: pointer; }
+  .cart-preview pre { margin: 10px 0 0; white-space: pre-wrap; font: inherit; font-size: 0.8rem; color: var(--fg-muted); border-left: 2px solid var(--line); padding-left: 12px; }
+  .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 70; background: var(--fg); color: var(--bg); padding: 12px 14px 12px 18px; display: flex; align-items: center; gap: 16px; font-size: 0.82rem; max-width: calc(100% - 32px); animation: rise 260ms both; }
+  .toast button { font: inherit; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--bg); color: var(--fg); border: 0; padding: 8px 12px; cursor: pointer; white-space: nowrap; }
+  @media (prefers-reduced-motion: reduce) { .cart-panel, .toast { animation: none; } }
 </style>
 </head>
 <body>
@@ -277,6 +319,10 @@
       <a href="#order">Order</a>
     </nav>
     <div class="header-links">
+      <button type="button" class="icon-link cart-btn" id="cart-open" aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="cart-count" id="cart-count" hidden>0</span>
+      </button>
       <a class="icon-link" href="https://wa.me/97451696699" target="_blank" rel="noopener" aria-label="WhatsApp">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.9a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
       </a>
@@ -369,10 +415,12 @@
         <span class="lb-soldout" id="lb-sold"></span>
         <p class="lb-desc" id="lb-desc"></p>
         <div class="lb-actions">
-          <a class="btn solid" id="lb-order" href="#" target="_blank" rel="noopener">Order this abaya</a>
+          <button type="button" class="btn solid" id="lb-add">Add to cart</button>
+          <a class="btn solid" id="lb-order" href="#" target="_blank" rel="noopener" hidden>Ask about the next drop</a>
+          <button type="button" class="lb-viewcart" id="lb-viewcart" hidden>View cart →</button>
           <a class="lb-ig" id="lb-ig" href="#" target="_blank" rel="noopener">View on Instagram</a>
         </div>
-        <p class="lb-note">Orders are confirmed on WhatsApp. Send your height or usual abaya length with the code and we will confirm fit, price and delivery.</p>
+        <p class="lb-note">Add everything you want to the cart, then send the whole order to Mash on WhatsApp in one message. Fit, final price and delivery are confirmed in the chat.</p>
       </div>
     </div>
   </div>
@@ -443,26 +491,27 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">How to order</p>
-          <h2>Send the code.</h2>
+          <h2>One message.</h2>
         </div>
-        <p class="note">No accounts, no checkout. Orders are taken on WhatsApp or by Instagram DM.</p>
+        <p class="note">No accounts, no card details. Your cart becomes a WhatsApp message to Mash, and everything is confirmed in the chat.</p>
       </div>
       <div class="steps">
         <div class="step">
-          <h3>Pick a piece</h3>
-          <p>Every abaya has a code, for example M046. Find it here or on the Instagram post.</p>
+          <h3>Add to cart</h3>
+          <p>Tap an abaya to see its photos and add it to your cart. Add as many as you like; each has its own code, for example M046.</p>
         </div>
         <div class="step">
-          <h3>Message us the code</h3>
-          <p>WhatsApp or DM the code with your height or usual abaya length. We confirm availability, fit and the final price.</p>
+          <h3>Send the order</h3>
+          <p>Open the cart and press "Order on WhatsApp". The message with your codes is written for you; add your height or usual abaya length and send.</p>
         </div>
         <div class="step">
           <h3>Delivered in Qatar</h3>
-          <p>Once confirmed, your piece is delivered to your door anywhere in Qatar.</p>
+          <p>Mash confirms availability, fit and the final price in the chat, then delivers to your door anywhere in Qatar.</p>
         </div>
       </div>
       <div class="cta">
-        <a class="btn solid" href="https://wa.me/97451696699" target="_blank" rel="noopener">WhatsApp</a>
+        <button type="button" class="btn solid" data-cart-open>Open your cart</button>
+        <a class="btn" href="https://wa.me/97451696699" target="_blank" rel="noopener">WhatsApp</a>
         <a class="btn" href="https://www.instagram.com/bymash.qatar/" target="_blank" rel="noopener">Instagram DM</a>
         <span class="contact" id="phone">+974 5169 6699 <button type="button" data-copy="+97451696699" aria-label="Copy WhatsApp number">Copy</button></span>
         <span class="contact" id="handle">@bymash.qatar <button type="button" data-copy="@bymash.qatar" aria-label="Copy Instagram handle">Copy</button></span>
@@ -470,6 +519,43 @@
     </div>
   </section>
 </main>
+
+<div class="cart" id="cart" hidden role="dialog" aria-modal="true" aria-labelledby="cart-title">
+  <div class="cart-backdrop" data-cart-close></div>
+  <aside class="cart-panel">
+    <div class="cart-head">
+      <div>
+        <p class="eyebrow">Your cart</p>
+        <h3 id="cart-title">Selected abayas</h3>
+      </div>
+      <button type="button" class="lb-close cart-close" data-cart-close aria-label="Close cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-empty" id="cart-empty">
+      <p>Nothing in your cart yet.</p>
+      <button type="button" class="btn" data-cart-close data-goto="#collection">Browse the collection</button>
+    </div>
+    <div class="cart-foot" id="cart-foot">
+      <div class="cart-total"><span>Total</span><b id="cart-total">0 QR</b></div>
+      <p class="cart-note" id="cart-note">Final price, fit and delivery are confirmed by Mash in the chat.</p>
+      <a class="btn solid" id="cart-order" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.9a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
+        Order on WhatsApp
+      </a>
+      <details class="cart-preview">
+        <summary>See the message that will be sent</summary>
+        <pre id="cart-message"></pre>
+      </details>
+    </div>
+  </aside>
+</div>
+
+<div class="toast" id="toast" hidden role="status" aria-live="polite">
+  <span id="toast-text">Added to cart</span>
+  <button type="button" data-cart-open>View cart</button>
+</div>
 
 <footer>
   <div class="wrap">
@@ -558,10 +644,16 @@
           '<span class="code">' + p.code + (p.name ? '<small>' + p.name + '</small>' : '') + '</span>' +
           '<span class="price' + (p.soldOut ? ' out' : '') + '">' + p.price + '</span>' +
           '<p class="desc">' + p.desc + '</p>' +
-          '<span class="hint">View <b>' + p.photos + (p.photos === 1 ? ' photo' : ' photos') + '</b> and order</span>' +
+          '<span class="row"><span class="hint">View <b>' + p.photos + (p.photos === 1 ? ' photo' : ' photos') + '</b></span>' +
+          (p.soldOut ? '<button type="button" class="add" disabled>Sold out</button>' : '<button type="button" class="add" data-add="' + p.code + '">Add to cart</button>') +
+          '</span>' +
         '</div>';
-      el.addEventListener('click', function () { open(p.code, 0); });
-      el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(p.code, 0); } });
+      el.addEventListener('click', function (e) {
+        var add = e.target.closest && e.target.closest('[data-add]');
+        if (add) { e.stopPropagation(); addToCart(p.code); return; }
+        open(p.code, 0);
+      });
+      el.addEventListener('keydown', function (e) { if (e.target !== el) return; if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(p.code, 0); } });
       return el;
     }
     var latest = document.getElementById('grid-latest'), earlier = document.getElementById('grid-earlier');
@@ -578,6 +670,7 @@
     var codeEl = document.getElementById('lb-code'), priceEl = document.getElementById('lb-price');
     var nameEl = document.getElementById('lb-name'), descEl = document.getElementById('lb-desc');
     var orderEl = document.getElementById('lb-order'), igEl = document.getElementById('lb-ig');
+    var addEl = document.getElementById('lb-add'), viewCartEl = document.getElementById('lb-viewcart');
     var current = null, index = 0, lastFocus = null;
 
     function show(i) {
@@ -604,7 +697,9 @@
       document.getElementById('lb-sold').textContent = p.soldOut ? 'Sold out' : '';
       descEl.textContent = p.desc;
       orderEl.href = orderLink(p);
-      orderEl.textContent = p.soldOut ? 'Ask about the next drop' : 'Order this abaya';
+      orderEl.hidden = !p.soldOut; addEl.hidden = !!p.soldOut;
+      addEl.textContent = 'Add to cart'; addEl.dataset.code = p.code;
+      viewCartEl.hidden = !cart[p.code];
       igEl.href = p.post;
       thumbs.innerHTML = '';
       thumbs.hidden = p.photos < 2;
@@ -642,6 +737,93 @@
     }, { passive: true });
     // tap the big photo to advance
     im.addEventListener('click', function () { if (current && current.photos > 1) show(index + 1); });
+
+    // ---- Cart ----
+    var cart = {};
+    try { cart = JSON.parse(localStorage.getItem('mash-cart') || '{}') || {}; } catch (e) { cart = {}; }
+    Object.keys(cart).forEach(function (c) { if (!byCode[c] || byCode[c].soldOut) delete cart[c]; });
+    var cartEl = document.getElementById('cart'), itemsEl = document.getElementById('cart-items'), emptyEl = document.getElementById('cart-empty');
+    var footEl = document.getElementById('cart-foot'), totalEl = document.getElementById('cart-total'), noteEl = document.getElementById('cart-note');
+    var cartOrder = document.getElementById('cart-order'), msgEl = document.getElementById('cart-message'), countEl = document.getElementById('cart-count');
+    var toast = document.getElementById('toast'), toastText = document.getElementById('toast-text'), toastTimer = null, cartLastFocus = null;
+
+    function priceNum(p) { var m = /([\d,]+)\s*QR/.exec(p.price); return m ? parseInt(m[1].replace(/,/g, ''), 10) : null; }
+    function fmt(n) { return n.toLocaleString('en-US') + ' QR'; }
+    function save() { try { localStorage.setItem('mash-cart', JSON.stringify(cart)); } catch (e) {} }
+    function cartCount() { return Object.keys(cart).reduce(function (n, c) { return n + cart[c]; }, 0); }
+    function message() {
+      var lines = ['Hi Mash, I would like to order:'];
+      var total = 0, onRequest = 0;
+      Object.keys(cart).forEach(function (c) {
+        var p = byCode[c], q = cart[c], n = priceNum(p);
+        lines.push('• ' + p.code + (p.name ? ' ' + p.name : '') + (q > 1 ? ' × ' + q : '') + ' – ' + (n !== null ? fmt(n * q) : 'price on request'));
+        if (n !== null) total += n * q; else onRequest += q;
+      });
+      if (total) lines.push('Total: ' + fmt(total) + (onRequest ? ' (+ ' + onRequest + ' on request)' : ''));
+      lines.push('', 'My height / usual abaya length: ', 'Delivery area in Qatar: ');
+      return lines.join('\n');
+    }
+    function renderCart() {
+      var codes = Object.keys(cart), n = cartCount();
+      countEl.textContent = n; countEl.hidden = n === 0;
+      emptyEl.hidden = n > 0; footEl.hidden = n === 0; itemsEl.hidden = n === 0;
+      itemsEl.innerHTML = '';
+      var total = 0, onRequest = 0;
+      codes.forEach(function (c) {
+        var p = byCode[c], q = cart[c], pn = priceNum(p);
+        if (pn !== null) total += pn * q; else onRequest += q;
+        var row = document.createElement('div'); row.className = 'cart-item';
+        row.innerHTML =
+          '<img src="' + img(c, 1) + '" alt="">' +
+          '<div><div class="ci-code">' + p.code + (p.name ? '<small>' + p.name + '</small>' : '') + '</div>' +
+          '<div class="ci-price">' + (pn !== null ? fmt(pn * q) : 'Price on request') + '</div>' +
+          '<button type="button" class="ci-remove" data-remove="' + c + '">Remove</button></div>' +
+          '<div class="qty"><button type="button" data-qty="' + c + '" data-d="-1" aria-label="One fewer">−</button><span>' + q + '</span><button type="button" data-qty="' + c + '" data-d="1" aria-label="One more">+</button></div>';
+        itemsEl.appendChild(row);
+      });
+      totalEl.textContent = total ? fmt(total) : (onRequest ? 'On request' : '0 QR');
+      noteEl.textContent = onRequest ? 'Includes ' + onRequest + ' piece' + (onRequest > 1 ? 's' : '') + ' priced on request. Final price, fit and delivery are confirmed by Mash in the chat.' : 'Final price, fit and delivery are confirmed by Mash in the chat.';
+      var m = message();
+      cartOrder.href = WA + '?text=' + encodeURIComponent(m);
+      msgEl.textContent = m;
+      document.querySelectorAll('.piece .add[data-add]').forEach(function (b) {
+        var inCart = !!cart[b.dataset.add];
+        b.classList.toggle('added', inCart); b.textContent = inCart ? 'In cart ✓' : 'Add to cart';
+      });
+      if (current) viewCartEl.hidden = !cart[current.code];
+    }
+    function showToast(text) {
+      toastText.textContent = text; toast.hidden = false;
+      clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.hidden = true; }, 2800);
+    }
+    function addToCart(code) {
+      var p = byCode[code]; if (!p || p.soldOut) return;
+      cart[code] = (cart[code] || 0) + 1; save(); renderCart();
+      showToast(p.code + (p.name ? ' ' + p.name : '') + ' added to your cart');
+    }
+    function openCart() {
+      cartLastFocus = document.activeElement; renderCart();
+      cartEl.hidden = false; document.body.classList.add('cart-open'); toast.hidden = true;
+      cartEl.querySelector('.cart-close').focus();
+    }
+    function closeCart() {
+      cartEl.hidden = true; document.body.classList.remove('cart-open');
+      if (cartLastFocus && cartLastFocus.focus) cartLastFocus.focus();
+    }
+    document.getElementById('cart-open').addEventListener('click', openCart);
+    document.querySelectorAll('[data-cart-open]').forEach(function (b) { b.addEventListener('click', openCart); });
+    cartEl.querySelectorAll('[data-cart-close]').forEach(function (b) {
+      b.addEventListener('click', function () { closeCart(); if (b.dataset.goto) { var t = document.querySelector(b.dataset.goto); if (t) t.scrollIntoView({ behavior: 'smooth' }); } });
+    });
+    itemsEl.addEventListener('click', function (e) {
+      var r = e.target.closest('[data-remove]'), q = e.target.closest('[data-qty]');
+      if (r) { delete cart[r.dataset.remove]; save(); renderCart(); }
+      else if (q) { var c = q.dataset.qty, d = parseInt(q.dataset.d, 10); cart[c] = Math.max(0, (cart[c] || 0) + d); if (!cart[c]) delete cart[c]; save(); renderCart(); }
+    });
+    addEl.addEventListener('click', function () { addToCart(addEl.dataset.code); });
+    viewCartEl.addEventListener('click', function () { close(); openCart(); });
+    document.addEventListener('keydown', function (e) { if (!cartEl.hidden && e.key === 'Escape') closeCart(); });
+    renderCart();
   })();
 </script>
 
