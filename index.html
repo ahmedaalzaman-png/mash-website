@@ -305,6 +305,35 @@
   .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 70; background: var(--fg); color: var(--bg); padding: 12px 14px 12px 18px; display: flex; align-items: center; gap: 16px; font-size: 0.82rem; max-width: calc(100% - 32px); animation: rise 260ms both; }
   .toast button { font: inherit; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--bg); color: var(--fg); border: 0; padding: 8px 12px; cursor: pointer; white-space: nowrap; }
   @media (prefers-reduced-motion: reduce) { .cart-panel, .toast { animation: none; } }
+
+  /* Size, length and custom options */
+  .opts { display: grid; gap: 16px; border-top: 1px solid var(--line); padding-top: 16px; }
+  .opt { display: grid; gap: 8px; }
+  .opt-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .opt-label { font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg); }
+  .opt-label em { font-style: normal; color: var(--fg-muted); letter-spacing: 0.12em; margin-left: 6px; }
+  .opt-link { font: inherit; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; background: none; border: 0; padding: 0 0 2px; color: var(--fg-muted); border-bottom: 1px solid var(--line); cursor: pointer; white-space: nowrap; transition: color 200ms, border-color 200ms; }
+  .opt-link:hover, .opt-link[aria-expanded="true"] { color: var(--fg); border-color: var(--fg); }
+  .sizes { display: flex; gap: 8px; }
+  .sizes button { font: inherit; font-size: 0.8rem; letter-spacing: 0.08em; min-width: 46px; height: 42px; padding: 0 12px; border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer; transition: border-color 160ms, background-color 160ms, color 160ms; }
+  .sizes button:hover { border-color: var(--fg); }
+  .sizes button[aria-checked="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .opts.invalid .sizes button:not([aria-checked="true"]) { border-color: color-mix(in srgb, var(--fg) 60%, transparent); }
+  .size-details { display: grid; gap: 8px; }
+  .size-details table { width: 100%; border-collapse: collapse; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+  .size-details th, .size-details td { padding: 7px 6px; text-align: center; border-top: 1px solid var(--line); }
+  .size-details th:first-child, .size-details td:first-child { text-align: left; }
+  .size-details th { font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-muted); font-weight: 500; border-top: 0; }
+  .size-details tr:last-child td { border-bottom: 1px solid var(--line); }
+  .size-foot { font-size: 0.74rem; color: var(--fg-muted); }
+  .table-wrap { overflow-x: auto; }
+  .opt select, .opt textarea { font: inherit; font-size: 0.9rem; width: 100%; padding: 11px 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 0; -webkit-appearance: none; appearance: none; }
+  .opt select { background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 36px; }
+  .opt select:focus, .opt textarea:focus { outline: none; border-color: var(--fg); }
+  .opt textarea { resize: vertical; min-height: 58px; line-height: 1.5; }
+  .opt-error { font-size: 0.8rem; color: var(--fg); border-left: 2px solid var(--fg); padding-left: 10px; }
+  .cart-item .ci-opts { font-size: 0.78rem; color: var(--fg); margin-top: 3px; }
+  .cart-item .ci-note { font-size: 0.76rem; color: var(--fg-muted); margin-top: 2px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -414,13 +443,53 @@
         <p class="lb-name" id="lb-name">Sakura Noir</p>
         <span class="lb-soldout" id="lb-sold"></span>
         <p class="lb-desc" id="lb-desc"></p>
+        <div class="opts" id="lb-opts">
+          <div class="opt">
+            <div class="opt-head">
+              <span class="opt-label">Size <em>required</em></span>
+              <button type="button" class="opt-link" id="size-toggle" aria-expanded="false" aria-controls="size-details">View size details</button>
+            </div>
+            <div class="sizes" id="lb-sizes" role="radiogroup" aria-label="Size">
+              <button type="button" role="radio" aria-checked="false" data-size="S">S</button>
+              <button type="button" role="radio" aria-checked="false" data-size="M">M</button>
+              <button type="button" role="radio" aria-checked="false" data-size="L">L</button>
+              <button type="button" role="radio" aria-checked="false" data-size="XL">XL</button>
+            </div>
+            <div class="size-details" id="size-details" hidden>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Size in inch</th><th>S</th><th>M</th><th>L</th><th>XL</th></tr></thead>
+                  <tbody>
+                    <tr><td>Shoulder</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+                    <tr><td>Armhole</td><td>9</td><td>9.5</td><td>10.5</td><td>11</td></tr>
+                    <tr><td>Sleeve length</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+                    <tr><td>Bust (closed front)</td><td>23</td><td>24</td><td>27</td><td>29</td></tr>
+                    <tr><td>Bust (open front)</td><td>24</td><td>26</td><td>28</td><td>30</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="size-foot">All measurements in inches. Length is chosen separately, from 51 to 61 inches.</p>
+            </div>
+          </div>
+          <div class="opt">
+            <label class="opt-label" for="lb-length">Length <em>required</em></label>
+            <select id="lb-length">
+              <option value="">Choose length (inches)</option>
+            </select>
+          </div>
+          <div class="opt">
+            <label class="opt-label" for="lb-custom">Custom configuration <em>optional</em></label>
+            <textarea id="lb-custom" rows="2" placeholder="Anything you would like changed, e.g. sleeves one inch shorter, closed front"></textarea>
+          </div>
+          <p class="opt-error" id="lb-error" hidden></p>
+        </div>
         <div class="lb-actions">
           <button type="button" class="btn solid" id="lb-add">Add to cart</button>
           <a class="btn solid" id="lb-order" href="#" target="_blank" rel="noopener" hidden>Ask about the next drop</a>
           <button type="button" class="lb-viewcart" id="lb-viewcart" hidden>View cart →</button>
           <a class="lb-ig" id="lb-ig" href="#" target="_blank" rel="noopener">View on Instagram</a>
         </div>
-        <p class="lb-note">Add everything you want to the cart, then send the whole order to Mash on WhatsApp in one message. Fit, final price and delivery are confirmed in the chat.</p>
+        <p class="lb-note">Choose a size and length for each abaya, add everything you want to the cart, then send the whole order to Mash on WhatsApp in one message. Final price and delivery are confirmed in the chat.</p>
       </div>
     </div>
   </div>
@@ -498,11 +567,11 @@
       <div class="steps">
         <div class="step">
           <h3>Add to cart</h3>
-          <p>Tap an abaya to see its photos and add it to your cart. Add as many as you like; each has its own code, for example M046.</p>
+          <p>Tap an abaya to see its photos, choose your size (S to XL) and length (51 to 61 inches, half sizes included), add any custom request, and put it in your cart. Add as many as you like.</p>
         </div>
         <div class="step">
           <h3>Send the order</h3>
-          <p>Open the cart and press "Order on WhatsApp". The message with your codes is written for you; add your height or usual abaya length and send.</p>
+          <p>Open the cart and press "Order on WhatsApp". The message with your codes, sizes, lengths and any custom notes is written for you. Add your delivery area and send.</p>
         </div>
         <div class="step">
           <h3>Delivered in Qatar</h3>
@@ -650,7 +719,7 @@
         '</div>';
       el.addEventListener('click', function (e) {
         var add = e.target.closest && e.target.closest('[data-add]');
-        if (add) { e.stopPropagation(); addToCart(p.code); return; }
+        if (add) { e.stopPropagation(); open(p.code, 0, true); return; }
         open(p.code, 0);
       });
       el.addEventListener('keydown', function (e) { if (e.target !== el) return; if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(p.code, 0); } });
@@ -671,6 +740,28 @@
     var nameEl = document.getElementById('lb-name'), descEl = document.getElementById('lb-desc');
     var orderEl = document.getElementById('lb-order'), igEl = document.getElementById('lb-ig');
     var addEl = document.getElementById('lb-add'), viewCartEl = document.getElementById('lb-viewcart');
+    var optsEl = document.getElementById('lb-opts'), sizesEl = document.getElementById('lb-sizes'), lengthEl = document.getElementById('lb-length');
+    var customEl = document.getElementById('lb-custom'), errEl = document.getElementById('lb-error');
+    var sizeToggle = document.getElementById('size-toggle'), sizeDetails = document.getElementById('size-details');
+    var chosenSize = '';
+    (function () { for (var L = 51; L <= 61; L += 0.5) { var o = document.createElement('option'); o.value = String(L); o.textContent = L + ' inches'; lengthEl.appendChild(o); } })();
+    sizesEl.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-size]'); if (!b) return;
+      chosenSize = b.dataset.size;
+      sizesEl.querySelectorAll('[data-size]').forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+      errEl.hidden = true; optsEl.classList.remove('invalid');
+    });
+    lengthEl.addEventListener('change', function () { errEl.hidden = true; optsEl.classList.remove('invalid'); });
+    sizeToggle.addEventListener('click', function () {
+      var open = sizeDetails.hidden; sizeDetails.hidden = !open;
+      sizeToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      sizeToggle.textContent = open ? 'Hide size details' : 'View size details';
+    });
+    function resetOptions() {
+      chosenSize = ''; sizesEl.querySelectorAll('[data-size]').forEach(function (x) { x.setAttribute('aria-checked', 'false'); });
+      lengthEl.value = ''; customEl.value = ''; errEl.hidden = true; optsEl.classList.remove('invalid');
+      sizeDetails.hidden = true; sizeToggle.setAttribute('aria-expanded', 'false'); sizeToggle.textContent = 'View size details';
+    }
     var current = null, index = 0, lastFocus = null;
 
     function show(i) {
@@ -688,7 +779,7 @@
       // preload neighbours
       if (!single) { [index + 1, index - 1].forEach(function (k) { var pre = new Image(); pre.src = img(p.code, ((k + p.photos) % p.photos) + 1); }); }
     }
-    function open(code, i) {
+    function open(code, i, focusOptions) {
       var p = byCode[code]; if (!p) return;
       current = p; lastFocus = document.activeElement;
       codeEl.textContent = p.code;
@@ -697,9 +788,10 @@
       document.getElementById('lb-sold').textContent = p.soldOut ? 'Sold out' : '';
       descEl.textContent = p.desc;
       orderEl.href = orderLink(p);
-      orderEl.hidden = !p.soldOut; addEl.hidden = !!p.soldOut;
+      orderEl.hidden = !p.soldOut; addEl.hidden = !!p.soldOut; optsEl.hidden = !!p.soldOut;
       addEl.textContent = 'Add to cart'; addEl.dataset.code = p.code;
-      viewCartEl.hidden = !cart[p.code];
+      resetOptions();
+      viewCartEl.hidden = !inCart(p.code);
       igEl.href = p.post;
       thumbs.innerHTML = '';
       thumbs.hidden = p.photos < 2;
@@ -712,7 +804,8 @@
       }
       show(i || 0);
       lb.hidden = false; document.body.classList.add('lb-open');
-      document.querySelector('.lb-close').focus();
+      if (focusOptions && !p.soldOut) { setTimeout(function () { optsEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); sizesEl.querySelector('[data-size]').focus(); }, 60); }
+      else document.querySelector('.lb-close').focus();
     }
     function close() {
       lb.hidden = true; document.body.classList.remove('lb-open'); current = null;
@@ -739,9 +832,11 @@
     im.addEventListener('click', function () { if (current && current.photos > 1) show(index + 1); });
 
     // ---- Cart ----
-    var cart = {};
-    try { cart = JSON.parse(localStorage.getItem('mash-cart') || '{}') || {}; } catch (e) { cart = {}; }
-    Object.keys(cart).forEach(function (c) { if (!byCode[c] || byCode[c].soldOut) delete cart[c]; });
+    var cart = [];
+    try { var saved = JSON.parse(localStorage.getItem('mash-cart') || '[]'); if (Array.isArray(saved)) cart = saved; } catch (e) { cart = []; }
+    cart = cart.filter(function (l) { return l && byCode[l.code] && !byCode[l.code].soldOut && l.size && l.length && l.qty > 0; });
+    function inCart(code) { return cart.some(function (l) { return l.code === code; }); }
+    function lineKey(l) { return l.code + '|' + l.size + '|' + l.length + '|' + (l.note || ''); }
     var cartEl = document.getElementById('cart'), itemsEl = document.getElementById('cart-items'), emptyEl = document.getElementById('cart-empty');
     var footEl = document.getElementById('cart-foot'), totalEl = document.getElementById('cart-total'), noteEl = document.getElementById('cart-note');
     var cartOrder = document.getElementById('cart-order'), msgEl = document.getElementById('cart-message'), countEl = document.getElementById('cart-count');
@@ -750,35 +845,40 @@
     function priceNum(p) { var m = /([\d,]+)\s*QR/.exec(p.price); return m ? parseInt(m[1].replace(/,/g, ''), 10) : null; }
     function fmt(n) { return n.toLocaleString('en-US') + ' QR'; }
     function save() { try { localStorage.setItem('mash-cart', JSON.stringify(cart)); } catch (e) {} }
-    function cartCount() { return Object.keys(cart).reduce(function (n, c) { return n + cart[c]; }, 0); }
+    function cartCount() { return cart.reduce(function (n, l) { return n + l.qty; }, 0); }
+    function lengthLabel(v) { return v.replace(/\.0$/, '') + '"'; }
     function message() {
       var lines = ['Hi Mash, I would like to order:'];
       var total = 0, onRequest = 0;
-      Object.keys(cart).forEach(function (c) {
-        var p = byCode[c], q = cart[c], n = priceNum(p);
-        lines.push('• ' + p.code + (p.name ? ' ' + p.name : '') + (q > 1 ? ' × ' + q : '') + ' – ' + (n !== null ? fmt(n * q) : 'price on request'));
+      cart.forEach(function (l) {
+        var p = byCode[l.code], q = l.qty, n = priceNum(p);
+        lines.push('• ' + p.code + (p.name ? ' ' + p.name : '') + (q > 1 ? ' × ' + q : '') + ' – Size ' + l.size + ', length ' + lengthLabel(l.length) + ' – ' + (n !== null ? fmt(n * q) : 'price on request'));
+        if (l.note) lines.push('  Custom: ' + l.note);
         if (n !== null) total += n * q; else onRequest += q;
       });
       if (total) lines.push('Total: ' + fmt(total) + (onRequest ? ' (+ ' + onRequest + ' on request)' : ''));
-      lines.push('', 'My height / usual abaya length: ', 'Delivery area in Qatar: ');
+      lines.push('', 'Delivery area in Qatar: ');
       return lines.join('\n');
     }
     function renderCart() {
-      var codes = Object.keys(cart), n = cartCount();
+      var n = cartCount();
       countEl.textContent = n; countEl.hidden = n === 0;
       emptyEl.hidden = n > 0; footEl.hidden = n === 0; itemsEl.hidden = n === 0;
       itemsEl.innerHTML = '';
       var total = 0, onRequest = 0;
-      codes.forEach(function (c) {
-        var p = byCode[c], q = cart[c], pn = priceNum(p);
+      cart.forEach(function (l, i) {
+        var p = byCode[l.code], q = l.qty, pn = priceNum(p);
         if (pn !== null) total += pn * q; else onRequest += q;
         var row = document.createElement('div'); row.className = 'cart-item';
+        var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
         row.innerHTML =
-          '<img src="' + img(c, 1) + '" alt="">' +
+          '<img src="' + img(l.code, 1) + '" alt="">' +
           '<div><div class="ci-code">' + p.code + (p.name ? '<small>' + p.name + '</small>' : '') + '</div>' +
+          '<div class="ci-opts">Size ' + esc(l.size) + ' · Length ' + esc(lengthLabel(l.length)) + '</div>' +
+          (l.note ? '<div class="ci-note">' + esc(l.note) + '</div>' : '') +
           '<div class="ci-price">' + (pn !== null ? fmt(pn * q) : 'Price on request') + '</div>' +
-          '<button type="button" class="ci-remove" data-remove="' + c + '">Remove</button></div>' +
-          '<div class="qty"><button type="button" data-qty="' + c + '" data-d="-1" aria-label="One fewer">−</button><span>' + q + '</span><button type="button" data-qty="' + c + '" data-d="1" aria-label="One more">+</button></div>';
+          '<button type="button" class="ci-remove" data-remove="' + i + '">Remove</button></div>' +
+          '<div class="qty"><button type="button" data-qty="' + i + '" data-d="-1" aria-label="One fewer">−</button><span>' + q + '</span><button type="button" data-qty="' + i + '" data-d="1" aria-label="One more">+</button></div>';
         itemsEl.appendChild(row);
       });
       totalEl.textContent = total ? fmt(total) : (onRequest ? 'On request' : '0 QR');
@@ -787,19 +887,23 @@
       cartOrder.href = WA + '?text=' + encodeURIComponent(m);
       msgEl.textContent = m;
       document.querySelectorAll('.piece .add[data-add]').forEach(function (b) {
-        var inCart = !!cart[b.dataset.add];
-        b.classList.toggle('added', inCart); b.textContent = inCart ? 'In cart ✓' : 'Add to cart';
+        var has = inCart(b.dataset.add);
+        b.classList.toggle('added', has); b.textContent = has ? 'In cart ✓ Add another' : 'Add to cart';
       });
-      if (current) viewCartEl.hidden = !cart[current.code];
+      if (current) viewCartEl.hidden = !inCart(current.code);
     }
     function showToast(text) {
       toastText.textContent = text; toast.hidden = false;
       clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.hidden = true; }, 2800);
     }
-    function addToCart(code) {
+    function addToCart(code, size, length, note) {
       var p = byCode[code]; if (!p || p.soldOut) return;
-      cart[code] = (cart[code] || 0) + 1; save(); renderCart();
-      showToast(p.code + (p.name ? ' ' + p.name : '') + ' added to your cart');
+      var line = { code: code, size: size, length: length, note: (note || '').trim().slice(0, 300), qty: 1 };
+      var key = lineKey(line), found = null;
+      cart.forEach(function (l) { if (lineKey(l) === key) found = l; });
+      if (found) found.qty += 1; else cart.push(line);
+      save(); renderCart();
+      showToast(p.code + (p.name ? ' ' + p.name : '') + ', size ' + size + ', ' + lengthLabel(length) + ' added to your cart');
     }
     function openCart() {
       cartLastFocus = document.activeElement; renderCart();
@@ -817,10 +921,22 @@
     });
     itemsEl.addEventListener('click', function (e) {
       var r = e.target.closest('[data-remove]'), q = e.target.closest('[data-qty]');
-      if (r) { delete cart[r.dataset.remove]; save(); renderCart(); }
-      else if (q) { var c = q.dataset.qty, d = parseInt(q.dataset.d, 10); cart[c] = Math.max(0, (cart[c] || 0) + d); if (!cart[c]) delete cart[c]; save(); renderCart(); }
+      if (r) { cart.splice(parseInt(r.dataset.remove, 10), 1); save(); renderCart(); }
+      else if (q) { var i = parseInt(q.dataset.qty, 10), d = parseInt(q.dataset.d, 10); if (cart[i]) { cart[i].qty = Math.max(0, cart[i].qty + d); if (!cart[i].qty) cart.splice(i, 1); } save(); renderCart(); }
     });
-    addEl.addEventListener('click', function () { addToCart(addEl.dataset.code); });
+    addEl.addEventListener('click', function () {
+      var missing = [];
+      if (!chosenSize) missing.push('a size');
+      if (!lengthEl.value) missing.push('a length');
+      if (missing.length) {
+        errEl.textContent = 'Please choose ' + missing.join(' and ') + ' before adding this abaya.';
+        errEl.hidden = false; optsEl.classList.add('invalid');
+        (chosenSize ? lengthEl : sizesEl.querySelector('[data-size]')).focus();
+        return;
+      }
+      addToCart(addEl.dataset.code, chosenSize, lengthEl.value, customEl.value);
+      viewCartEl.hidden = false;
+    });
     viewCartEl.addEventListener('click', function () { close(); openCart(); });
     document.addEventListener('keydown', function (e) { if (!cartEl.hidden && e.key === 'Escape') closeCart(); });
     renderCart();
