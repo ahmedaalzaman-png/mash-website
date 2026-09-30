@@ -334,6 +334,18 @@
   .opt-error { font-size: 0.8rem; color: var(--fg); border-left: 2px solid var(--fg); padding-left: 10px; }
   .cart-item .ci-opts { font-size: 0.78rem; color: var(--fg); margin-top: 3px; }
   .cart-item .ci-note { font-size: 0.76rem; color: var(--fg-muted); margin-top: 2px; font-style: italic; }
+
+  .drop-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: clamp(20px, 3vw, 32px); }
+  .drop-nav a { text-decoration: none; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 9px 14px; border: 1px solid var(--line); transition: border-color 200ms, background-color 200ms, color 200ms; }
+  .drop-nav a:hover { border-color: var(--fg); background: var(--fg); color: var(--bg); }
+  .drop { scroll-margin-top: 90px; }
+  .drop + .drop { margin-top: clamp(40px, 6vw, 72px); }
+  .drop-head { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-items: end; padding-bottom: 14px; border-bottom: 1px solid var(--line-strong); margin-bottom: clamp(18px, 3vw, 28px); }
+  .drop-head h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1; }
+  .drop-head h3 small { display: block; font-family: var(--font-body); font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 10px; }
+  .drop-head .drop-meta { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted); text-align: right; }
+  @media (max-width: 600px) { .drop-head { grid-template-columns: 1fr; } .drop-head .drop-meta { text-align: left; } }
+  .piece .code small.colour { text-transform: none; letter-spacing: 0.06em; font-size: 0.72rem; }
 </style>
 </head>
 <body>
@@ -395,23 +407,13 @@
           <p class="eyebrow">The collection</p>
           <h2>Find your code.</h2>
         </div>
-        <p class="note">Every abaya has a code. Tap a piece to see all of its photos, then order it with one message.</p>
+        <p class="note">Every abaya Mash has released, drop by drop, each with its code. Tap a piece to see all of its photos, then order it with one message. Sold-out pieces stay listed so you can ask about them.</p>
       </div>
 
-      <p class="group-label">Latest drop · June 2026</p>
-      <div class="grid" id="grid-latest"></div>
-
-      <p class="group-label">Earlier pieces</p>
-      <div class="grid" id="grid-earlier">
-        <a class="piece archive" href="https://www.instagram.com/bymash.qatar/" target="_blank" rel="noopener">
-          <div class="photo archive-tile">
-            <div>
-              <div class="archive-title">Codes M001 to M041</div>
-              <div class="archive-sub">Browse the full archive on Instagram →</div>
-            </div>
-          </div>
-        </a>
-      </div>
+      <nav class="drop-nav" aria-label="Drops">
+        <a href="#drop-4">Drop 4</a><a href="#drop-3">Drop 3</a><a href="#drop-2">Drop 2</a><a href="#drop-1">Drop 1</a>
+      </nav>
+      <div id="drops"></div>
     </div>
   </section>
 
@@ -661,31 +663,112 @@
 
   (function () {
     var WA = 'https://wa.me/97451696699';
+    var IG = 'https://www.instagram.com/bymash.qatar/p/';
+    var DROPS = [
+      { id: 'drop-4', n: 4, title: 'Sakura Noir', when: 'June 2026', codes: 'M042 to M047' },
+      { id: 'drop-3', n: 3, title: 'Ramadan 1447', when: 'February to March 2026', codes: 'M035 to M041' },
+      { id: 'drop-2', n: 2, title: 'Winter', when: 'December 2025', codes: 'M021 to M034' },
+      { id: 'drop-1', n: 1, title: 'The first collection', when: 'September 2025', codes: 'M001 to M020' }
+    ];
     var PRODUCTS = [
-      { code: 'M047', name: 'Sakura Noir', price: '1,500 QR', soldOut: true, photos: 6, group: 'latest',
-        post: 'https://www.instagram.com/bymash.qatar/p/DZDLqr0jlgG/',
+      // Drop 4
+      { code: 'M047', name: 'Sakura Noir', price: '1,500 QR', soldOut: true, photos: 6, group: 'drop-4', post: IG + 'DZDLqr0jlgG/',
         desc: 'Black abaya with hand-finished cherry blossom embroidery and lace at the cuffs. The piece that named the drop.' },
-      { code: 'M046', name: '', price: '1,400 QR', photos: 6, group: 'latest',
-        post: 'https://www.instagram.com/bymash.qatar/p/DZDLSxYDmnv/',
+      { code: 'M046', name: '', price: '1,400 QR', photos: 6, group: 'drop-4', post: IG + 'DZDLSxYDmnv/',
         desc: 'Structured satin-finish abaya with an embellished high-neck panel and welt pockets.' },
-      { code: 'M045', name: '', price: '1,300 QR', photos: 6, group: 'latest',
-        post: 'https://www.instagram.com/bymash.qatar/p/DZDKl4EjuVb/',
+      { code: 'M045', name: '', price: '1,300 QR', photos: 6, group: 'drop-4', post: IG + 'DZDKl4EjuVb/',
         desc: 'Open abaya in a wave-textured jacquard, finished with lace along the sleeve.' },
-      { code: 'M044', name: '', price: '1,300 QR', photos: 7, group: 'latest',
-        post: 'https://www.instagram.com/bymash.qatar/p/DZDKOaCDn-_/',
+      { code: 'M044', name: '', price: '1,300 QR', photos: 7, group: 'drop-4', post: IG + 'DZDKOaCDn-_/',
         desc: 'Tailored coat-style abaya in a tonal floral jacquard, with a peak lapel and a single metal clasp.' },
-      { code: 'M043', name: '', price: '1,200 QR', photos: 7, group: 'latest',
-        post: 'https://www.instagram.com/bymash.qatar/p/DZDJqOxjsZW/',
+      { code: 'M043', name: '', price: '1,200 QR', photos: 7, group: 'drop-4', post: IG + 'DZDJqOxjsZW/',
         desc: 'Midnight navy abaya with beaded tassel closures and a fringe of sequins toward the hem.' },
-      { code: 'M042', name: '', price: '1,200 QR', photos: 7, group: 'latest',
-        post: 'https://www.instagram.com/bymash.qatar/p/DZDJIjqjluG/',
+      { code: 'M042', name: '', price: '1,200 QR', photos: 7, group: 'drop-4', post: IG + 'DZDJIjqjluG/',
         desc: 'Black textured abaya with beaded tassel closures at the chest and a subtle shimmer through the hem.' },
-      { code: 'M041', name: '', price: '1,100 QR', photos: 1, group: 'earlier',
-        post: 'https://www.instagram.com/bymash.qatar/p/DWZCvbiDL7h/',
-        desc: 'Black abaya with a broad band of white embroidered lace across the body.' },
-      { code: 'M039', name: '', price: 'Price on request', photos: 1, group: 'earlier',
-        post: 'https://www.instagram.com/bymash.qatar/p/DUyXLKQDk3s/',
-        desc: 'Pale grey cape-style abaya with lace panels. “When lace flows, the story begins.”' }
+      // Drop 3
+      { code: 'M041', name: '', price: '1,100 QR', photos: 1, group: 'drop-3', post: IG + 'DWZCvbiDL7h/',
+        desc: 'Black coat-style abaya with a broad band of white embroidered lace across the body.' },
+      { code: 'M040', name: '3D Printed · Limited', price: '1,300 QR', photos: 8, group: 'drop-3', post: IG + 'DUbJd4OjKZh/',
+        desc: 'Limited-edition black abaya with 3D-printed blue geometric panels down the front and sleeves.' },
+      { code: 'M039', name: 'With headband', price: '850 QR', photos: 6, group: 'drop-3', post: IG + 'DUbI_f_jDuJ/',
+        desc: 'Pale grey satin cape-style abaya with grey lace panels at the sleeves and hem. Comes with a matching headband.' },
+      { code: 'M038', name: '', price: '850 QR', photos: 5, group: 'drop-3', post: IG + 'DUbIl-eDI6i/',
+        desc: 'White satin abaya with black lace appliqué down the front and along the sleeves.' },
+      { code: 'M037', name: '', price: '1,000 QR', soldOut: true, photos: 5, group: 'drop-3', post: IG + 'DUbINUSDL3v/',
+        desc: 'Black-and-gold print abaya with a keyhole neckline and tassel ties.' },
+      { code: 'M036', name: '', price: '1,050 QR', soldOut: true, photos: 5, group: 'drop-3', post: IG + 'DUbHlMwjN7g/',
+        desc: 'Black-and-sand wave-print abaya with a fringed, beaded neckline.' },
+      { code: 'M035', name: '', price: '1,200 QR', soldOut: true, photos: 6, group: 'drop-3', post: IG + 'DUbG6v2DEWZ/',
+        desc: 'White jacquard kaftan-style abaya with blue and silver wave embroidery at the waist and sleeves.' },
+      // Drop 2
+      { code: 'M034', name: '', price: '1,250 QR', photos: 3, group: 'drop-2', post: IG + 'DS4_-JMjKGT/',
+        desc: 'Black abaya with a sheer floral burnout panel from the waist down.' },
+      { code: 'M033', name: '', price: '1,250 QR', photos: 4, group: 'drop-2', post: IG + 'DSUmFiNk0qL/',
+        desc: 'Black coat abaya with beaded trim running down the front and a high collar.' },
+      { code: 'M032', name: '', price: '1,250 QR', photos: 4, group: 'drop-2', post: IG + 'DSUlst2k59s/',
+        desc: 'Royal blue crushed velvet abaya with tonal embroidery.' },
+      { code: 'M031', name: '', price: '1,200 QR', photos: 4, group: 'drop-2', post: IG + 'DSUld29DDta/',
+        desc: 'Navy velvet abaya with embroidered flowers throughout.' },
+      { code: 'M030', name: '', price: '1,200 QR', photos: 4, group: 'drop-2', post: IG + 'DSUlNjekwok/',
+        desc: 'Black velvet abaya with silver embroidered motifs and an embroidered hem.' },
+      { code: 'M029', name: '', price: '1,300 QR', photos: 5, group: 'drop-2', post: IG + 'DSUk4UxE_BI/',
+        desc: 'Charcoal grey coat abaya with a pleated metallic panel that opens as you move.' },
+      { code: 'M028', name: '', price: '1,200 QR', photos: 4, group: 'drop-2', post: IG + 'DSUkpK_E0ql/',
+        desc: 'Brown-and-black patterned velvet coat abaya with lace at the cuffs and neckline.' },
+      { code: 'M027', name: '', price: '1,150 QR', photos: 5, group: 'drop-2', post: IG + 'DSUkZj9k9_q/',
+        desc: 'Black velvet-look coat abaya with a subtle burnout pattern.' },
+      { code: 'M026', name: '', price: '1,250 QR', photos: 4, group: 'drop-2', post: IG + 'DSUkHK0Ex7T/',
+        desc: 'Royal blue coat abaya worn with a cream-and-blue checkerboard knit vest.' },
+      { code: 'M025', name: '', price: '1,250 QR', photos: 3, group: 'drop-2', post: IG + 'DSUj3L-E9lO/',
+        desc: 'Black coat abaya worn with a cream-and-black checkerboard knit vest.' },
+      { code: 'M024', name: '', price: '1,100 QR', photos: 4, group: 'drop-2', post: IG + 'DSUjlz6E4zM/',
+        desc: 'Charcoal grey coat abaya with a wide band of white embroidered lace.' },
+      { code: 'M023', name: '', price: '1,100 QR', photos: 4, group: 'drop-2', post: IG + 'DSUjYxYk1gz/',
+        desc: 'Chocolate brown coat abaya with tonal embroidered panels at the sleeves and hips.' },
+      { code: 'M022', name: '', price: '1,100 QR', photos: 4, group: 'drop-2', post: IG + 'DSUjAGXky3P/',
+        desc: 'Navy coat abaya, clean and tailored, with a straight open front.' },
+      { code: 'M021', name: '', price: '1,100 QR', photos: 4, group: 'drop-2', post: IG + 'DSUiozekxT3/',
+        desc: 'Black coat abaya with tonal embroidered panels at the hips.' },
+      // Drop 1
+      { code: 'M020', name: '', price: '1,400 QR', soldOut: true, photos: 3, group: 'drop-1', post: IG + 'DOlxldzDFGT/',
+        desc: 'Black coat abaya in a teardrop-scale jacquard, with beaded trim at the pockets and cuffs.' },
+      { code: 'M019', name: '', price: '1,400 QR', photos: 4, group: 'drop-1', post: IG + 'DOlxOqCjAmi/',
+        desc: 'Dark green foliage-print abaya with matching sheila.' },
+      { code: 'M018', name: '', price: '1,150 QR', photos: 3, group: 'drop-1', post: IG + 'DOlwoXXjGPp/',
+        desc: 'Navy abaya with embroidered blue floral trim down the front and at the cuffs.' },
+      { code: 'M017', name: '', price: '1,150 QR', photos: 2, group: 'drop-1', post: IG + 'DOlwcgvDEur/',
+        desc: 'Black abaya with patterned brown-and-gold velvet sleeves and a matching sheila.' },
+      { code: 'M016', name: '', price: '1,000 QR', photos: 3, group: 'drop-1', post: IG + 'DOlwDu1jAhz/',
+        desc: 'Black satin open abaya with a single button and side pockets.' },
+      { code: 'M015', name: 'Trousers', price: '250 QR', photos: 2, group: 'drop-1', post: IG + 'DOlvsMWjJ5U/',
+        desc: 'Matching navy trousers with a buttoned waistband, to wear under the open abayas.' },
+      { code: 'M014', name: '', price: '1,190 QR', photos: 3, group: 'drop-1', post: IG + 'DOlviYCDKk0/',
+        desc: 'Navy coat-style open abaya with pockets, shown with matching trousers.' },
+      { code: 'M013', name: '', price: '1,000 QR', soldOut: true, photos: 3, group: 'drop-1', post: IG + 'DOlvOuoDATu/',
+        desc: 'Black abaya with a quilted, pleated collar.' },
+      { code: 'M012', name: 'Navy Blue', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOlufS7jDeg/',
+        desc: 'Navy blue textured open abaya with a white scalloped edge.' },
+      { code: 'M011', name: 'Petrol Blue', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOlufS7jDeg/',
+        desc: 'Petrol blue textured open abaya with a white scalloped edge.' },
+      { code: 'M010', name: 'Peach', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOluHJrDH62/',
+        desc: 'Peach open abaya with a scalloped edge. Photographed with the brown M009.' },
+      { code: 'M009', name: 'Brown', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOluHJrDH62/',
+        desc: 'Brown open abaya with a scalloped edge. Photographed with the peach M010.' },
+      { code: 'M008', name: '', price: '800 QR', soldOut: true, photos: 2, group: 'drop-1', post: IG + 'DOlt1y4DFWA/',
+        desc: 'Black open abaya with a white scalloped edge.' },
+      { code: 'M007', name: '', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOlsunljKM1/',
+        desc: 'Pale blue open abaya with a dark scalloped border.' },
+      { code: 'M006', name: '', price: '1,250 QR', photos: 4, group: 'drop-1', post: IG + 'DOlr5xIjIhu/',
+        desc: 'Abstract-print open abaya in rust, blue and charcoal panels, with matching sheila.' },
+      { code: 'M005', name: '', price: '1,250 QR', soldOut: true, photos: 6, group: 'drop-1', post: IG + 'DOlrvH-jMZ6/',
+        desc: 'Black open abaya with a soft tonal print and matching sheila.' },
+      { code: 'M004', name: '', price: '1,250 QR', photos: 4, group: 'drop-1', post: IG + 'DOlrmY1DDpZ/',
+        desc: 'Open black abaya with a subtle tonal print, shown with a matching sheila.' },
+      { code: 'M003', name: '', price: '1,100 QR', photos: 4, group: 'drop-1', post: IG + 'DOlrVK4jD1X/',
+        desc: 'Navy abaya with an abstract maze-line print.' },
+      { code: 'M002', name: '', price: '800 QR', photos: 3, group: 'drop-1', post: IG + 'DOlrNdbDB4O/',
+        desc: 'Black abaya with fine white pinstripes and a matching sheila.' },
+      { code: 'M001', name: '', price: '1,050 QR', photos: 4, group: 'drop-1', post: IG + 'DOlrFYPjK-T/',
+        desc: 'Black abaya with a blue scalloped print running the length of the front and sleeves.' }
     ];
     var byCode = {};
     PRODUCTS.forEach(function (p) { byCode[p.code] = p; });
@@ -706,7 +789,7 @@
       var hover = p.photos > 1 ? '<img class="alt" src="' + img(p.code, 2) + '" alt="" loading="lazy">' : '';
       el.innerHTML =
         '<div class="photo">' +
-          '<img src="' + img(p.code, 1) + '" alt="' + p.code + (p.name ? ' ' + p.name : '') + '" loading="lazy">' + hover +
+          '<img src="images/' + p.code + '-t.jpg" alt="' + p.code + (p.name ? ' ' + p.name : '') + '" loading="lazy">' + hover +
           (p.soldOut ? '<span class="badge">Sold out</span>' : '') +
         '</div>' +
         '<div class="meta">' +
@@ -725,10 +808,19 @@
       el.addEventListener('keydown', function (e) { if (e.target !== el) return; if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(p.code, 0); } });
       return el;
     }
-    var latest = document.getElementById('grid-latest'), earlier = document.getElementById('grid-earlier');
-    PRODUCTS.forEach(function (p) {
-      if (p.group === 'latest') latest.appendChild(card(p));
-      else earlier.insertBefore(card(p), earlier.lastElementChild);
+    var dropsEl = document.getElementById('drops');
+    DROPS.forEach(function (d) {
+      var items = PRODUCTS.filter(function (p) { return p.group === d.id; });
+      var sold = items.filter(function (p) { return p.soldOut; }).length;
+      var sec = document.createElement('section'); sec.className = 'drop'; sec.id = d.id;
+      sec.innerHTML =
+        '<div class="drop-head">' +
+          '<h3><small>' + d.when + '</small>Drop ' + d.n + ' · ' + d.title + '</h3>' +
+          '<div class="drop-meta">' + d.codes + ' · ' + items.length + ' pieces' + (sold ? ' · ' + sold + ' sold out' : '') + '</div>' +
+        '</div>';
+      var grid = document.createElement('div'); grid.className = 'grid';
+      items.forEach(function (p) { grid.appendChild(card(p)); });
+      sec.appendChild(grid); dropsEl.appendChild(sec);
     });
 
     // Lightbox
