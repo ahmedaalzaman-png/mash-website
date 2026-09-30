@@ -346,6 +346,23 @@
   .drop-head .drop-meta { font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted); text-align: right; }
   @media (max-width: 600px) { .drop-head { grid-template-columns: 1fr; } .drop-head .drop-meta { text-align: left; } }
   .piece .code small.colour { text-transform: none; letter-spacing: 0.06em; font-size: 0.72rem; }
+
+  /* Checkout */
+  .checkout { flex: 1; overflow-y: auto; padding: 16px 22px 22px; display: grid; gap: 16px; align-content: start; }
+  .co-back { font: inherit; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; background: none; border: 0; padding: 0; color: var(--fg-muted); cursor: pointer; justify-self: start; }
+  .co-back:hover { color: var(--fg); }
+  .co-fields { display: grid; gap: 14px; }
+  .opt input { font: inherit; font-size: 0.95rem; width: 100%; padding: 11px 12px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 0; }
+  .opt input:focus { outline: none; border-color: var(--fg); }
+  .co-sum { display: grid; gap: 6px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  .co-sum div { display: flex; justify-content: space-between; }
+  .co-sum span { color: var(--fg-muted); }
+  .co-sum b { font-weight: 400; }
+  .co-sum .co-total { padding-top: 8px; border-top: 1px solid var(--line-strong); font-size: 1rem; }
+  .co-sum .co-total b { font-family: var(--font-display); font-size: 1.6rem; }
+  .checkout .btn { width: 100%; }
+  .checkout .btn[disabled] { opacity: 0.6; cursor: progress; }
+  .cart-note a { color: inherit; }
 </style>
 </head>
 <body>
@@ -611,6 +628,7 @@
     <div class="cart-foot" id="cart-foot">
       <div class="cart-total"><span>Total</span><b id="cart-total">0 QR</b></div>
       <p class="cart-note" id="cart-note">Final price, fit and delivery are confirmed by Mash in the chat.</p>
+      <button type="button" class="btn solid" id="cart-pay" hidden>Checkout and pay online</button>
       <a class="btn solid" id="cart-order" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.9a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8.1 8.1 0 1 1 12 20.1Zm4.5-6c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z"/></svg>
         Order on WhatsApp
@@ -620,6 +638,25 @@
         <pre id="cart-message"></pre>
       </details>
     </div>
+    <form class="checkout" id="checkout" hidden novalidate>
+      <button type="button" class="co-back" id="co-back">← Back to cart</button>
+      <div class="co-fields">
+        <div class="opt"><label class="opt-label" for="co-name">Full name</label><input id="co-name" name="name" autocomplete="name" required></div>
+        <div class="opt"><label class="opt-label" for="co-phone">Mobile (WhatsApp)</label><input id="co-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="5X XXX XXX" required></div>
+        <div class="opt"><label class="opt-label" for="co-email">Email <em>for your receipt</em></label><input id="co-email" name="email" type="email" autocomplete="email"></div>
+        <div class="opt"><label class="opt-label" for="co-area">Area</label><input id="co-area" name="area" autocomplete="address-level2" placeholder="e.g. West Bay, Al Waab, Lusail" required></div>
+        <div class="opt"><label class="opt-label" for="co-address">Delivery address</label><textarea id="co-address" name="address" rows="2" autocomplete="street-address" placeholder="Building, street, zone, flat" required></textarea></div>
+        <div class="opt"><label class="opt-label" for="co-notes">Delivery notes <em>optional</em></label><input id="co-notes" name="notes" placeholder="Best time to deliver, landmark"></div>
+      </div>
+      <div class="co-sum">
+        <div><span>Subtotal</span><b id="co-sub">0 QR</b></div>
+        <div><span>Delivery</span><b id="co-del">0 QR</b></div>
+        <div class="co-total"><span>Total</span><b id="co-total">0 QR</b></div>
+      </div>
+      <p class="opt-error" id="co-error" hidden></p>
+      <button type="submit" class="btn solid" id="co-submit">Pay securely</button>
+      <p class="cart-note">Card, Apple Pay or Google Pay on Dibsy's secure page. By paying you agree to our <a href="policies.html" target="_blank" rel="noopener">delivery and returns policy</a>.</p>
+    </form>
   </aside>
 </div>
 
@@ -634,6 +671,7 @@
     <nav aria-label="Footer">
       <a href="#collection">Collection</a>
       <a href="#order">Order</a>
+      <a href="policies.html">Delivery &amp; returns</a>
       <a href="https://www.instagram.com/bymash.qatar/" target="_blank" rel="noopener">Instagram</a>
     </nav>
     <span>Mash · Doha, Qatar · © 2026</span>
@@ -661,115 +699,9 @@
     });
   })();
 
-  (function () {
-    var WA = 'https://wa.me/97451696699';
-    var IG = 'https://www.instagram.com/bymash.qatar/p/';
-    var DROPS = [
-      { id: 'drop-4', n: 4, title: 'Sakura Noir', when: 'June 2026', codes: 'M042 to M047' },
-      { id: 'drop-3', n: 3, title: 'Ramadan 1447', when: 'February to March 2026', codes: 'M035 to M041' },
-      { id: 'drop-2', n: 2, title: 'Winter', when: 'December 2025', codes: 'M021 to M034' },
-      { id: 'drop-1', n: 1, title: 'The first collection', when: 'September 2025', codes: 'M001 to M020' }
-    ];
-    var PRODUCTS = [
-      // Drop 4
-      { code: 'M047', name: 'Sakura Noir', price: '1,500 QR', soldOut: true, photos: 6, group: 'drop-4', post: IG + 'DZDLqr0jlgG/',
-        desc: 'Black abaya with hand-finished cherry blossom embroidery and lace at the cuffs. The piece that named the drop.' },
-      { code: 'M046', name: '', price: '1,400 QR', photos: 6, group: 'drop-4', post: IG + 'DZDLSxYDmnv/',
-        desc: 'Structured satin-finish abaya with an embellished high-neck panel and welt pockets.' },
-      { code: 'M045', name: '', price: '1,300 QR', photos: 6, group: 'drop-4', post: IG + 'DZDKl4EjuVb/',
-        desc: 'Open abaya in a wave-textured jacquard, finished with lace along the sleeve.' },
-      { code: 'M044', name: '', price: '1,300 QR', photos: 7, group: 'drop-4', post: IG + 'DZDKOaCDn-_/',
-        desc: 'Tailored coat-style abaya in a tonal floral jacquard, with a peak lapel and a single metal clasp.' },
-      { code: 'M043', name: '', price: '1,200 QR', photos: 7, group: 'drop-4', post: IG + 'DZDJqOxjsZW/',
-        desc: 'Midnight navy abaya with beaded tassel closures and a fringe of sequins toward the hem.' },
-      { code: 'M042', name: '', price: '1,200 QR', photos: 7, group: 'drop-4', post: IG + 'DZDJIjqjluG/',
-        desc: 'Black textured abaya with beaded tassel closures at the chest and a subtle shimmer through the hem.' },
-      // Drop 3
-      { code: 'M041', name: '', price: '1,100 QR', photos: 1, group: 'drop-3', post: IG + 'DWZCvbiDL7h/',
-        desc: 'Black coat-style abaya with a broad band of white embroidered lace across the body.' },
-      { code: 'M040', name: '3D Printed · Limited', price: '1,300 QR', photos: 8, group: 'drop-3', post: IG + 'DUbJd4OjKZh/',
-        desc: 'Limited-edition black abaya with 3D-printed blue geometric panels down the front and sleeves.' },
-      { code: 'M039', name: 'With headband', price: '850 QR', photos: 6, group: 'drop-3', post: IG + 'DUbI_f_jDuJ/',
-        desc: 'Pale grey satin cape-style abaya with grey lace panels at the sleeves and hem. Comes with a matching headband.' },
-      { code: 'M038', name: '', price: '850 QR', photos: 5, group: 'drop-3', post: IG + 'DUbIl-eDI6i/',
-        desc: 'White satin abaya with black lace appliqué down the front and along the sleeves.' },
-      { code: 'M037', name: '', price: '1,000 QR', soldOut: true, photos: 5, group: 'drop-3', post: IG + 'DUbINUSDL3v/',
-        desc: 'Black-and-gold print abaya with a keyhole neckline and tassel ties.' },
-      { code: 'M036', name: '', price: '1,050 QR', soldOut: true, photos: 5, group: 'drop-3', post: IG + 'DUbHlMwjN7g/',
-        desc: 'Black-and-sand wave-print abaya with a fringed, beaded neckline.' },
-      { code: 'M035', name: '', price: '1,200 QR', soldOut: true, photos: 6, group: 'drop-3', post: IG + 'DUbG6v2DEWZ/',
-        desc: 'White jacquard kaftan-style abaya with blue and silver wave embroidery at the waist and sleeves.' },
-      // Drop 2
-      { code: 'M034', name: '', price: '1,250 QR', photos: 3, group: 'drop-2', post: IG + 'DS4_-JMjKGT/',
-        desc: 'Black abaya with a sheer floral burnout panel from the waist down.' },
-      { code: 'M033', name: '', price: '1,250 QR', photos: 4, group: 'drop-2', post: IG + 'DSUmFiNk0qL/',
-        desc: 'Black coat abaya with beaded trim running down the front and a high collar.' },
-      { code: 'M032', name: '', price: '1,250 QR', photos: 4, group: 'drop-2', post: IG + 'DSUlst2k59s/',
-        desc: 'Royal blue crushed velvet abaya with tonal embroidery.' },
-      { code: 'M031', name: '', price: '1,200 QR', photos: 4, group: 'drop-2', post: IG + 'DSUld29DDta/',
-        desc: 'Navy velvet abaya with embroidered flowers throughout.' },
-      { code: 'M030', name: '', price: '1,200 QR', photos: 4, group: 'drop-2', post: IG + 'DSUlNjekwok/',
-        desc: 'Black velvet abaya with silver embroidered motifs and an embroidered hem.' },
-      { code: 'M029', name: '', price: '1,300 QR', photos: 5, group: 'drop-2', post: IG + 'DSUk4UxE_BI/',
-        desc: 'Charcoal grey coat abaya with a pleated metallic panel that opens as you move.' },
-      { code: 'M028', name: '', price: '1,200 QR', photos: 4, group: 'drop-2', post: IG + 'DSUkpK_E0ql/',
-        desc: 'Brown-and-black patterned velvet coat abaya with lace at the cuffs and neckline.' },
-      { code: 'M027', name: '', price: '1,150 QR', photos: 5, group: 'drop-2', post: IG + 'DSUkZj9k9_q/',
-        desc: 'Black velvet-look coat abaya with a subtle burnout pattern.' },
-      { code: 'M026', name: '', price: '1,250 QR', photos: 4, group: 'drop-2', post: IG + 'DSUkHK0Ex7T/',
-        desc: 'Royal blue coat abaya worn with a cream-and-blue checkerboard knit vest.' },
-      { code: 'M025', name: '', price: '1,250 QR', photos: 3, group: 'drop-2', post: IG + 'DSUj3L-E9lO/',
-        desc: 'Black coat abaya worn with a cream-and-black checkerboard knit vest.' },
-      { code: 'M024', name: '', price: '1,100 QR', photos: 4, group: 'drop-2', post: IG + 'DSUjlz6E4zM/',
-        desc: 'Charcoal grey coat abaya with a wide band of white embroidered lace.' },
-      { code: 'M023', name: '', price: '1,100 QR', photos: 4, group: 'drop-2', post: IG + 'DSUjYxYk1gz/',
-        desc: 'Chocolate brown coat abaya with tonal embroidered panels at the sleeves and hips.' },
-      { code: 'M022', name: '', price: '1,100 QR', photos: 4, group: 'drop-2', post: IG + 'DSUjAGXky3P/',
-        desc: 'Navy coat abaya, clean and tailored, with a straight open front.' },
-      { code: 'M021', name: '', price: '1,100 QR', photos: 4, group: 'drop-2', post: IG + 'DSUiozekxT3/',
-        desc: 'Black coat abaya with tonal embroidered panels at the hips.' },
-      // Drop 1
-      { code: 'M020', name: '', price: '1,400 QR', soldOut: true, photos: 3, group: 'drop-1', post: IG + 'DOlxldzDFGT/',
-        desc: 'Black coat abaya in a teardrop-scale jacquard, with beaded trim at the pockets and cuffs.' },
-      { code: 'M019', name: '', price: '1,400 QR', photos: 4, group: 'drop-1', post: IG + 'DOlxOqCjAmi/',
-        desc: 'Dark green foliage-print abaya with matching sheila.' },
-      { code: 'M018', name: '', price: '1,150 QR', photos: 3, group: 'drop-1', post: IG + 'DOlwoXXjGPp/',
-        desc: 'Navy abaya with embroidered blue floral trim down the front and at the cuffs.' },
-      { code: 'M017', name: '', price: '1,150 QR', photos: 2, group: 'drop-1', post: IG + 'DOlwcgvDEur/',
-        desc: 'Black abaya with patterned brown-and-gold velvet sleeves and a matching sheila.' },
-      { code: 'M016', name: '', price: '1,000 QR', photos: 3, group: 'drop-1', post: IG + 'DOlwDu1jAhz/',
-        desc: 'Black satin open abaya with a single button and side pockets.' },
-      { code: 'M015', name: 'Trousers', price: '250 QR', photos: 2, group: 'drop-1', post: IG + 'DOlvsMWjJ5U/',
-        desc: 'Matching navy trousers with a buttoned waistband, to wear under the open abayas.' },
-      { code: 'M014', name: '', price: '1,190 QR', photos: 3, group: 'drop-1', post: IG + 'DOlviYCDKk0/',
-        desc: 'Navy coat-style open abaya with pockets, shown with matching trousers.' },
-      { code: 'M013', name: '', price: '1,000 QR', soldOut: true, photos: 3, group: 'drop-1', post: IG + 'DOlvOuoDATu/',
-        desc: 'Black abaya with a quilted, pleated collar.' },
-      { code: 'M012', name: 'Navy Blue', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOlufS7jDeg/',
-        desc: 'Navy blue textured open abaya with a white scalloped edge.' },
-      { code: 'M011', name: 'Petrol Blue', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOlufS7jDeg/',
-        desc: 'Petrol blue textured open abaya with a white scalloped edge.' },
-      { code: 'M010', name: 'Peach', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOluHJrDH62/',
-        desc: 'Peach open abaya with a scalloped edge. Photographed with the brown M009.' },
-      { code: 'M009', name: 'Brown', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOluHJrDH62/',
-        desc: 'Brown open abaya with a scalloped edge. Photographed with the peach M010.' },
-      { code: 'M008', name: '', price: '800 QR', soldOut: true, photos: 2, group: 'drop-1', post: IG + 'DOlt1y4DFWA/',
-        desc: 'Black open abaya with a white scalloped edge.' },
-      { code: 'M007', name: '', price: '800 QR', photos: 2, group: 'drop-1', post: IG + 'DOlsunljKM1/',
-        desc: 'Pale blue open abaya with a dark scalloped border.' },
-      { code: 'M006', name: '', price: '1,250 QR', photos: 4, group: 'drop-1', post: IG + 'DOlr5xIjIhu/',
-        desc: 'Abstract-print open abaya in rust, blue and charcoal panels, with matching sheila.' },
-      { code: 'M005', name: '', price: '1,250 QR', soldOut: true, photos: 6, group: 'drop-1', post: IG + 'DOlrvH-jMZ6/',
-        desc: 'Black open abaya with a soft tonal print and matching sheila.' },
-      { code: 'M004', name: '', price: '1,250 QR', photos: 4, group: 'drop-1', post: IG + 'DOlrmY1DDpZ/',
-        desc: 'Open black abaya with a subtle tonal print, shown with a matching sheila.' },
-      { code: 'M003', name: '', price: '1,100 QR', photos: 4, group: 'drop-1', post: IG + 'DOlrVK4jD1X/',
-        desc: 'Navy abaya with an abstract maze-line print.' },
-      { code: 'M002', name: '', price: '800 QR', photos: 3, group: 'drop-1', post: IG + 'DOlrNdbDB4O/',
-        desc: 'Black abaya with fine white pinstripes and a matching sheila.' },
-      { code: 'M001', name: '', price: '1,050 QR', photos: 4, group: 'drop-1', post: IG + 'DOlrFYPjK-T/',
-        desc: 'Black abaya with a blue scalloped print running the length of the front and sleeves.' }
-    ];
+  function startShop(CAT) {
+    var WA = 'https://wa.me/' + CAT.whatsapp;
+    var DROPS = CAT.drops, PRODUCTS = CAT.products;
     var byCode = {};
     PRODUCTS.forEach(function (p) { byCode[p.code] = p; });
 
@@ -998,7 +930,7 @@
       showToast(p.code + (p.name ? ' ' + p.name : '') + ', size ' + size + ', ' + lengthLabel(length) + ' added to your cart');
     }
     function openCart() {
-      cartLastFocus = document.activeElement; renderCart();
+      cartLastFocus = document.activeElement; renderCart(); showCheckout(false);
       cartEl.hidden = false; document.body.classList.add('cart-open'); toast.hidden = true;
       cartEl.querySelector('.cart-close').focus();
     }
@@ -1031,8 +963,61 @@
     });
     viewCartEl.addEventListener('click', function () { close(); openCart(); });
     document.addEventListener('keydown', function (e) { if (!cartEl.hidden && e.key === 'Escape') closeCart(); });
+
+    // ---- Online checkout (shown only when the server says payment is switched on) ----
+    var payBtn = document.getElementById('cart-pay'), coForm = document.getElementById('checkout');
+    var coErr = document.getElementById('co-error'), coSubmit = document.getElementById('co-submit');
+    var DELIVERY = CAT.delivery || { fee: 0 };
+    var onlineOn = false;
+    fetch('/api/config', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (c) {
+      if (c && c.online) { onlineOn = true; if (c.delivery) DELIVERY = c.delivery; renderCart(); }
+    }).catch(function () {});
+    function payable() { return cart.length && cart.every(function (l) { return priceNum(byCode[l.code]) !== null; }); }
+    function showCheckout(on) {
+      coForm.hidden = !on; itemsEl.hidden = on || cartCount() === 0; footEl.hidden = on || cartCount() === 0;
+      if (on) {
+        var sub = cart.reduce(function (n, l) { return n + priceNum(byCode[l.code]) * l.qty; }, 0);
+        var del = DELIVERY.freeOver && sub >= DELIVERY.freeOver ? 0 : Number(DELIVERY.fee || 0);
+        document.getElementById('co-sub').textContent = fmt(sub);
+        document.getElementById('co-del').textContent = del ? fmt(del) : 'Free';
+        document.getElementById('co-total').textContent = fmt(sub + del);
+        coSubmit.textContent = 'Pay ' + fmt(sub + del) + ' securely';
+        coErr.hidden = true; document.getElementById('co-name').focus();
+      }
+    }
+    var baseRender = renderCart;
+    renderCart = function () {
+      baseRender();
+      payBtn.hidden = !(onlineOn && payable());
+      if (!coForm.hidden && !cartCount()) showCheckout(false);
+    };
+    payBtn.addEventListener('click', function () { showCheckout(true); });
+    document.getElementById('co-back').addEventListener('click', function () { showCheckout(false); });
+    try { var savedC = JSON.parse(localStorage.getItem('mash-customer') || '{}'); ['name','phone','email','area','address'].forEach(function (k) { if (savedC[k]) coForm.elements[k].value = savedC[k]; }); } catch (e) {}
+    coForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = coForm.elements, customer = {};
+      ['name','phone','email','area','address','notes'].forEach(function (k) { customer[k] = f[k].value.trim(); });
+      var missing = [];
+      if (!customer.name) missing.push('your name'); if (!customer.phone) missing.push('a mobile number');
+      if (!customer.area) missing.push('your area'); if (!customer.address) missing.push('a delivery address');
+      if (missing.length) { coErr.textContent = 'Please enter ' + missing.join(', ') + '.'; coErr.hidden = false; return; }
+      try { localStorage.setItem('mash-customer', JSON.stringify({ name: customer.name, phone: customer.phone, email: customer.email, area: customer.area, address: customer.address })); } catch (err) {}
+      coSubmit.disabled = true; var label = coSubmit.textContent; coSubmit.textContent = 'Opening secure payment…'; coErr.hidden = true;
+      fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customer: customer, lines: cart.map(function (l) { return { code: l.code, size: l.size, length: l.length, qty: l.qty, note: l.note || '' }; }) }) })
+        .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
+        .then(function (res) {
+          if (res.ok && res.b.checkoutUrl) { window.location.href = res.b.checkoutUrl; return; }
+          coErr.textContent = (res.b.errors || ['Something went wrong. Please try again.']).join(' '); coErr.hidden = false;
+          coSubmit.disabled = false; coSubmit.textContent = label;
+        })
+        .catch(function () { coErr.textContent = 'No connection. Please check your internet and try again.'; coErr.hidden = false; coSubmit.disabled = false; coSubmit.textContent = label; });
+    });
     renderCart();
-  })();
+  }
+  fetch('catalog.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(startShop)
+    .catch(function () { var d = document.getElementById('drops'); if (d) d.innerHTML = '<p class="note">The collection could not load. Please refresh the page.</p>'; });
 </script>
 
 </body>

@@ -1,0 +1,558 @@
+{
+ "currency": "QAR",
+ "whatsapp": "97451696699",
+ "delivery": {
+  "fee": 25,
+  "freeOver": 2000,
+  "note": "Delivery anywhere in Qatar"
+ },
+ "drops": [
+  {
+   "id": "drop-4",
+   "n": 4,
+   "title": "Sakura Noir",
+   "when": "June 2026",
+   "codes": "M042 to M047"
+  },
+  {
+   "id": "drop-3",
+   "n": 3,
+   "title": "Ramadan 1447",
+   "when": "February to March 2026",
+   "codes": "M035 to M041"
+  },
+  {
+   "id": "drop-2",
+   "n": 2,
+   "title": "Winter",
+   "when": "December 2025",
+   "codes": "M021 to M034"
+  },
+  {
+   "id": "drop-1",
+   "n": 1,
+   "title": "The first collection",
+   "when": "September 2025",
+   "codes": "M001 to M020"
+  }
+ ],
+ "products": [
+  {
+   "code": "M047",
+   "name": "Sakura Noir",
+   "price": "1,500 QR",
+   "soldOut": true,
+   "photos": 6,
+   "group": "drop-4",
+   "post": "https://www.instagram.com/bymash.qatar/p/DZDLqr0jlgG/",
+   "desc": "Black abaya with hand-finished cherry blossom embroidery and lace at the cuffs. The piece that named the drop.",
+   "priceQAR": 1500
+  },
+  {
+   "code": "M046",
+   "name": "",
+   "price": "1,400 QR",
+   "photos": 6,
+   "group": "drop-4",
+   "post": "https://www.instagram.com/bymash.qatar/p/DZDLSxYDmnv/",
+   "desc": "Structured satin-finish abaya with an embellished high-neck panel and welt pockets.",
+   "priceQAR": 1400,
+   "soldOut": false
+  },
+  {
+   "code": "M045",
+   "name": "",
+   "price": "1,300 QR",
+   "photos": 6,
+   "group": "drop-4",
+   "post": "https://www.instagram.com/bymash.qatar/p/DZDKl4EjuVb/",
+   "desc": "Open abaya in a wave-textured jacquard, finished with lace along the sleeve.",
+   "priceQAR": 1300,
+   "soldOut": false
+  },
+  {
+   "code": "M044",
+   "name": "",
+   "price": "1,300 QR",
+   "photos": 7,
+   "group": "drop-4",
+   "post": "https://www.instagram.com/bymash.qatar/p/DZDKOaCDn-_/",
+   "desc": "Tailored coat-style abaya in a tonal floral jacquard, with a peak lapel and a single metal clasp.",
+   "priceQAR": 1300,
+   "soldOut": false
+  },
+  {
+   "code": "M043",
+   "name": "",
+   "price": "1,200 QR",
+   "photos": 7,
+   "group": "drop-4",
+   "post": "https://www.instagram.com/bymash.qatar/p/DZDJqOxjsZW/",
+   "desc": "Midnight navy abaya with beaded tassel closures and a fringe of sequins toward the hem.",
+   "priceQAR": 1200,
+   "soldOut": false
+  },
+  {
+   "code": "M042",
+   "name": "",
+   "price": "1,200 QR",
+   "photos": 7,
+   "group": "drop-4",
+   "post": "https://www.instagram.com/bymash.qatar/p/DZDJIjqjluG/",
+   "desc": "Black textured abaya with beaded tassel closures at the chest and a subtle shimmer through the hem.",
+   "priceQAR": 1200,
+   "soldOut": false
+  },
+  {
+   "code": "M041",
+   "name": "",
+   "price": "1,100 QR",
+   "photos": 1,
+   "group": "drop-3",
+   "post": "https://www.instagram.com/bymash.qatar/p/DWZCvbiDL7h/",
+   "desc": "Black coat-style abaya with a broad band of white embroidered lace across the body.",
+   "priceQAR": 1100,
+   "soldOut": false
+  },
+  {
+   "code": "M040",
+   "name": "3D Printed · Limited",
+   "price": "1,300 QR",
+   "photos": 8,
+   "group": "drop-3",
+   "post": "https://www.instagram.com/bymash.qatar/p/DUbJd4OjKZh/",
+   "desc": "Limited-edition black abaya with 3D-printed blue geometric panels down the front and sleeves.",
+   "priceQAR": 1300,
+   "soldOut": false
+  },
+  {
+   "code": "M039",
+   "name": "With headband",
+   "price": "850 QR",
+   "photos": 6,
+   "group": "drop-3",
+   "post": "https://www.instagram.com/bymash.qatar/p/DUbI_f_jDuJ/",
+   "desc": "Pale grey satin cape-style abaya with grey lace panels at the sleeves and hem. Comes with a matching headband.",
+   "priceQAR": 850,
+   "soldOut": false
+  },
+  {
+   "code": "M038",
+   "name": "",
+   "price": "850 QR",
+   "photos": 5,
+   "group": "drop-3",
+   "post": "https://www.instagram.com/bymash.qatar/p/DUbIl-eDI6i/",
+   "desc": "White satin abaya with black lace appliqué down the front and along the sleeves.",
+   "priceQAR": 850,
+   "soldOut": false
+  },
+  {
+   "code": "M037",
+   "name": "",
+   "price": "1,000 QR",
+   "soldOut": true,
+   "photos": 5,
+   "group": "drop-3",
+   "post": "https://www.instagram.com/bymash.qatar/p/DUbINUSDL3v/",
+   "desc": "Black-and-gold print abaya with a keyhole neckline and tassel ties.",
+   "priceQAR": 1000
+  },
+  {
+   "code": "M036",
+   "name": "",
+   "price": "1,050 QR",
+   "soldOut": true,
+   "photos": 5,
+   "group": "drop-3",
+   "post": "https://www.instagram.com/bymash.qatar/p/DUbHlMwjN7g/",
+   "desc": "Black-and-sand wave-print abaya with a fringed, beaded neckline.",
+   "priceQAR": 1050
+  },
+  {
+   "code": "M035",
+   "name": "",
+   "price": "1,200 QR",
+   "soldOut": true,
+   "photos": 6,
+   "group": "drop-3",
+   "post": "https://www.instagram.com/bymash.qatar/p/DUbG6v2DEWZ/",
+   "desc": "White jacquard kaftan-style abaya with blue and silver wave embroidery at the waist and sleeves.",
+   "priceQAR": 1200
+  },
+  {
+   "code": "M034",
+   "name": "",
+   "price": "1,250 QR",
+   "photos": 3,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DS4_-JMjKGT/",
+   "desc": "Black abaya with a sheer floral burnout panel from the waist down.",
+   "priceQAR": 1250,
+   "soldOut": false
+  },
+  {
+   "code": "M033",
+   "name": "",
+   "price": "1,250 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUmFiNk0qL/",
+   "desc": "Black coat abaya with beaded trim running down the front and a high collar.",
+   "priceQAR": 1250,
+   "soldOut": false
+  },
+  {
+   "code": "M032",
+   "name": "",
+   "price": "1,250 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUlst2k59s/",
+   "desc": "Royal blue crushed velvet abaya with tonal embroidery.",
+   "priceQAR": 1250,
+   "soldOut": false
+  },
+  {
+   "code": "M031",
+   "name": "",
+   "price": "1,200 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUld29DDta/",
+   "desc": "Navy velvet abaya with embroidered flowers throughout.",
+   "priceQAR": 1200,
+   "soldOut": false
+  },
+  {
+   "code": "M030",
+   "name": "",
+   "price": "1,200 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUlNjekwok/",
+   "desc": "Black velvet abaya with silver embroidered motifs and an embroidered hem.",
+   "priceQAR": 1200,
+   "soldOut": false
+  },
+  {
+   "code": "M029",
+   "name": "",
+   "price": "1,300 QR",
+   "photos": 5,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUk4UxE_BI/",
+   "desc": "Charcoal grey coat abaya with a pleated metallic panel that opens as you move.",
+   "priceQAR": 1300,
+   "soldOut": false
+  },
+  {
+   "code": "M028",
+   "name": "",
+   "price": "1,200 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUkpK_E0ql/",
+   "desc": "Brown-and-black patterned velvet coat abaya with lace at the cuffs and neckline.",
+   "priceQAR": 1200,
+   "soldOut": false
+  },
+  {
+   "code": "M027",
+   "name": "",
+   "price": "1,150 QR",
+   "photos": 5,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUkZj9k9_q/",
+   "desc": "Black velvet-look coat abaya with a subtle burnout pattern.",
+   "priceQAR": 1150,
+   "soldOut": false
+  },
+  {
+   "code": "M026",
+   "name": "",
+   "price": "1,250 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUkHK0Ex7T/",
+   "desc": "Royal blue coat abaya worn with a cream-and-blue checkerboard knit vest.",
+   "priceQAR": 1250,
+   "soldOut": false
+  },
+  {
+   "code": "M025",
+   "name": "",
+   "price": "1,250 QR",
+   "photos": 3,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUj3L-E9lO/",
+   "desc": "Black coat abaya worn with a cream-and-black checkerboard knit vest.",
+   "priceQAR": 1250,
+   "soldOut": false
+  },
+  {
+   "code": "M024",
+   "name": "",
+   "price": "1,100 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUjlz6E4zM/",
+   "desc": "Charcoal grey coat abaya with a wide band of white embroidered lace.",
+   "priceQAR": 1100,
+   "soldOut": false
+  },
+  {
+   "code": "M023",
+   "name": "",
+   "price": "1,100 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUjYxYk1gz/",
+   "desc": "Chocolate brown coat abaya with tonal embroidered panels at the sleeves and hips.",
+   "priceQAR": 1100,
+   "soldOut": false
+  },
+  {
+   "code": "M022",
+   "name": "",
+   "price": "1,100 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUjAGXky3P/",
+   "desc": "Navy coat abaya, clean and tailored, with a straight open front.",
+   "priceQAR": 1100,
+   "soldOut": false
+  },
+  {
+   "code": "M021",
+   "name": "",
+   "price": "1,100 QR",
+   "photos": 4,
+   "group": "drop-2",
+   "post": "https://www.instagram.com/bymash.qatar/p/DSUiozekxT3/",
+   "desc": "Black coat abaya with tonal embroidered panels at the hips.",
+   "priceQAR": 1100,
+   "soldOut": false
+  },
+  {
+   "code": "M020",
+   "name": "",
+   "price": "1,400 QR",
+   "soldOut": true,
+   "photos": 3,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlxldzDFGT/",
+   "desc": "Black coat abaya in a teardrop-scale jacquard, with beaded trim at the pockets and cuffs.",
+   "priceQAR": 1400
+  },
+  {
+   "code": "M019",
+   "name": "",
+   "price": "1,400 QR",
+   "photos": 4,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlxOqCjAmi/",
+   "desc": "Dark green foliage-print abaya with matching sheila.",
+   "priceQAR": 1400,
+   "soldOut": false
+  },
+  {
+   "code": "M018",
+   "name": "",
+   "price": "1,150 QR",
+   "photos": 3,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlwoXXjGPp/",
+   "desc": "Navy abaya with embroidered blue floral trim down the front and at the cuffs.",
+   "priceQAR": 1150,
+   "soldOut": false
+  },
+  {
+   "code": "M017",
+   "name": "",
+   "price": "1,150 QR",
+   "photos": 2,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlwcgvDEur/",
+   "desc": "Black abaya with patterned brown-and-gold velvet sleeves and a matching sheila.",
+   "priceQAR": 1150,
+   "soldOut": false
+  },
+  {
+   "code": "M016",
+   "name": "",
+   "price": "1,000 QR",
+   "photos": 3,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlwDu1jAhz/",
+   "desc": "Black satin open abaya with a single button and side pockets.",
+   "priceQAR": 1000,
+   "soldOut": false
+  },
+  {
+   "code": "M015",
+   "name": "Trousers",
+   "price": "250 QR",
+   "photos": 2,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlvsMWjJ5U/",
+   "desc": "Matching navy trousers with a buttoned waistband, to wear under the open abayas.",
+   "priceQAR": 250,
+   "soldOut": false
+  },
+  {
+   "code": "M014",
+   "name": "",
+   "price": "1,190 QR",
+   "photos": 3,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlviYCDKk0/",
+   "desc": "Navy coat-style open abaya with pockets, shown with matching trousers.",
+   "priceQAR": 1190,
+   "soldOut": false
+  },
+  {
+   "code": "M013",
+   "name": "",
+   "price": "1,000 QR",
+   "soldOut": true,
+   "photos": 3,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlvOuoDATu/",
+   "desc": "Black abaya with a quilted, pleated collar.",
+   "priceQAR": 1000
+  },
+  {
+   "code": "M012",
+   "name": "Navy Blue",
+   "price": "800 QR",
+   "photos": 2,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlufS7jDeg/",
+   "desc": "Navy blue textured open abaya with a white scalloped edge.",
+   "priceQAR": 800,
+   "soldOut": false
+  },
+  {
+   "code": "M011",
+   "name": "Petrol Blue",
+   "price": "800 QR",
+   "photos": 2,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlufS7jDeg/",
+   "desc": "Petrol blue textured open abaya with a white scalloped edge.",
+   "priceQAR": 800,
+   "soldOut": false
+  },
+  {
+   "code": "M010",
+   "name": "Peach",
+   "price": "800 QR",
+   "photos": 2,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOluHJrDH62/",
+   "desc": "Peach open abaya with a scalloped edge. Photographed with the brown M009.",
+   "priceQAR": 800,
+   "soldOut": false
+  },
+  {
+   "code": "M009",
+   "name": "Brown",
+   "price": "800 QR",
+   "photos": 2,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOluHJrDH62/",
+   "desc": "Brown open abaya with a scalloped edge. Photographed with the peach M010.",
+   "priceQAR": 800,
+   "soldOut": false
+  },
+  {
+   "code": "M008",
+   "name": "",
+   "price": "800 QR",
+   "soldOut": true,
+   "photos": 2,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlt1y4DFWA/",
+   "desc": "Black open abaya with a white scalloped edge.",
+   "priceQAR": 800
+  },
+  {
+   "code": "M007",
+   "name": "",
+   "price": "800 QR",
+   "photos": 2,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlsunljKM1/",
+   "desc": "Pale blue open abaya with a dark scalloped border.",
+   "priceQAR": 800,
+   "soldOut": false
+  },
+  {
+   "code": "M006",
+   "name": "",
+   "price": "1,250 QR",
+   "photos": 4,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlr5xIjIhu/",
+   "desc": "Abstract-print open abaya in rust, blue and charcoal panels, with matching sheila.",
+   "priceQAR": 1250,
+   "soldOut": false
+  },
+  {
+   "code": "M005",
+   "name": "",
+   "price": "1,250 QR",
+   "soldOut": true,
+   "photos": 6,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlrvH-jMZ6/",
+   "desc": "Black open abaya with a soft tonal print and matching sheila.",
+   "priceQAR": 1250
+  },
+  {
+   "code": "M004",
+   "name": "",
+   "price": "1,250 QR",
+   "photos": 4,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlrmY1DDpZ/",
+   "desc": "Open black abaya with a subtle tonal print, shown with a matching sheila.",
+   "priceQAR": 1250,
+   "soldOut": false
+  },
+  {
+   "code": "M003",
+   "name": "",
+   "price": "1,100 QR",
+   "photos": 4,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlrVK4jD1X/",
+   "desc": "Navy abaya with an abstract maze-line print.",
+   "priceQAR": 1100,
+   "soldOut": false
+  },
+  {
+   "code": "M002",
+   "name": "",
+   "price": "800 QR",
+   "photos": 3,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlrNdbDB4O/",
+   "desc": "Black abaya with fine white pinstripes and a matching sheila.",
+   "priceQAR": 800,
+   "soldOut": false
+  },
+  {
+   "code": "M001",
+   "name": "",
+   "price": "1,050 QR",
+   "photos": 4,
+   "group": "drop-1",
+   "post": "https://www.instagram.com/bymash.qatar/p/DOlrFYPjK-T/",
+   "desc": "Black abaya with a blue scalloped print running the length of the front and sleeves.",
+   "priceQAR": 1050,
+   "soldOut": false
+  }
+ ]
+}

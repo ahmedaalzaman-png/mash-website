@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Your order · Mash</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Jost:wght@300;400&display=swap">
+<link rel="stylesheet" href="page.css"></head>
+<body>
+<header><div class="wrap"><a class="wordmark" href="/">Mash</a><a class="back" href="/">← Back to the collection</a></div></header>
+<main><div class="wrap" id="out">
+  <p class="eyebrow">Your order</p><h1>Checking your payment…</h1><p>This takes a few seconds.</p>
+</div></main>
+<script>
+(function () {
+  var id = new URLSearchParams(location.search).get('id'), out = document.getElementById('out'), tries = 0;
+  var fmt = function (n) { return n.toLocaleString('en-US') + ' QR'; };
+  var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  function table(o) {
+    return '<table>' + o.items.map(function (i) {
+      return '<tr><td>' + esc(i.code) + (i.name ? ' ' + esc(i.name) : '') + (i.qty > 1 ? ' × ' + i.qty : '') + '<br><small>Size ' + esc(i.size) + ' · Length ' + String(i.length).replace(/\.0$/, '') + '"</small></td><td>' + fmt(i.lineQAR) + '</td></tr>';
+    }).join('') + '<tr><td>Delivery</td><td>' + (o.delivery ? fmt(o.delivery) : 'Free') + '</td></tr><tr class="total"><td>Total</td><td>' + fmt(o.total) + '</td></tr></table>';
+  }
+  function show(o) {
+    if (o.status === 'paid') {
+      try { localStorage.removeItem('mash-cart'); } catch (e) {}
+      out.innerHTML = '<p class="eyebrow">Order ' + esc(o.id) + '</p><h1>Thank you, ' + esc(o.firstName) + '.</h1><p>Your payment went through. Mash will message you on WhatsApp to arrange delivery. If you gave an email, a receipt is on its way.</p>' + table(o) + '<div class="actions"><a class="btn" href="/">Back to the collection</a><a class="btn ghost" href="https://wa.me/97451696699" target="_blank" rel="noopener">Message Mash</a></div>';
+    } else if (o.status === 'failed') {
+      out.innerHTML = '<p class="eyebrow">Order ' + esc(o.id) + '</p><h1>The payment did not go through.</h1><p>You have not been charged. Your cart is still saved, so you can try again or order on WhatsApp instead.</p><div class="actions"><a class="btn" href="/#collection">Return to your cart</a><a class="btn ghost" href="https://wa.me/97451696699" target="_blank" rel="noopener">Order on WhatsApp</a></div>';
+    } else if (tries < 10) {
+      tries++; setTimeout(check, 3000);
+    } else {
+      out.innerHTML = '<p class="eyebrow">Order ' + esc(o.id) + '</p><h1>Your payment is still being confirmed.</h1><p>This can take a minute. You can refresh this page, or message Mash on WhatsApp with your order number.</p><div class="actions"><a class="btn" href="">Refresh</a><a class="btn ghost" href="https://wa.me/97451696699" target="_blank" rel="noopener">Message Mash</a></div>';
+    }
+  }
+  function check() {
+    fetch('/api/order?id=' + encodeURIComponent(id || ''), { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(show)
+      .catch(function () { out.innerHTML = '<h1>We could not find this order.</h1><p>If you were charged, message Mash on WhatsApp and we will sort it out.</p><div class="actions"><a class="btn" href="https://wa.me/97451696699" target="_blank" rel="noopener">Message Mash</a></div>'; });
+  }
+  check();
+})();
+</script>
+</body></html>
